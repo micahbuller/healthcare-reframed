@@ -3,9 +3,9 @@ import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 import WebGL from "three/addons/capabilities/WebGL.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import Colors from "nice-color-palettes"
 
-const pallete = Colors[Math.floor(Math.random() * Colors.length)]
+const pallete = ["#FEFAE4","#EB795C","#E599F0","#F767CC","#FDEAA8"]
+
 const newPallete = pallete.map((color:string) => new THREE.Color(color))
 
 const vertexShader = `uniform float time;
@@ -109,9 +109,12 @@ void main() {
     float noiseFlow = 5. * float(i)*0.3;
     float noiseSpeed = 10. + float(i)*0.3;
     float noiseSeed = 1. + float(i)*10.;
-    vec2 noiseFreq = vec2(1,2);
+    vec2 noiseFreq = vec2(0.6,0.9);
 
-    float noise = snoise(vec3(noiseCoord.x*noiseFreq.x + time*noiseFlow, noiseCoord.y*noiseFreq.y, time * noiseSpeed + noiseSeed));
+    float noiseFloor = 0.1;
+    float noiseCeil = 0.6 + float(i)*0.07;
+
+    float noise = smoothstep(noiseFloor, noiseCeil, snoise(vec3(noiseCoord.x*noiseFreq.x + time*noiseFlow, noiseCoord.y*noiseFreq.y, time * noiseSpeed + noiseSeed)));
 
     vColor = mix(vColor, uColor[i], noise);
   }
@@ -162,7 +165,7 @@ const ThreeScene: React.FC = () => {
         controls.update();
 
         // Create Plane
-        const geometry = new THREE.PlaneGeometry(4, 4, 300, 300);
+        const geometry = new THREE.PlaneGeometry(3, 3, 100, 100);
         const material = new THREE.ShaderMaterial({
           vertexShader,
           fragmentShader,
