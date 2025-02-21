@@ -4,7 +4,7 @@ import * as THREE from "three";
 import WebGL from "three/addons/capabilities/WebGL.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-const pallete = ["#FEFAE4","#EB795C","#E599F0","#F767CC","#FDEAA8"]
+const pallete = ["#EC7A5B","#EB795C","#FDE8A6","#EEB7D5","#FEF8E5"] 
 
 const newPallete = pallete.map((color:string) => new THREE.Color(color))
 
@@ -90,9 +90,9 @@ float snoise(vec3 v){
 
 void main() {
 
-  vec2 noiseCoord = uv*vec2(3.,4.);
+  vec2 noiseCoord = uv*vec2(5.,8.);
 
-  float tilt = -2.*uv.y;
+  float tilt = -5.*uv.y;
 
   float incline = uv.x*0.5;
 
@@ -109,10 +109,10 @@ void main() {
     float noiseFlow = 5. * float(i)*0.3;
     float noiseSpeed = 10. + float(i)*0.3;
     float noiseSeed = 1. + float(i)*10.;
-    vec2 noiseFreq = vec2(0.6,0.9);
+    vec2 noiseFreq = vec2(0.3,0.5);
 
     float noiseFloor = 0.1;
-    float noiseCeil = 0.6 + float(i)*0.07;
+    float noiseCeil = 0.8 + float(i)*0.07;
 
     float noise = smoothstep(noiseFloor, noiseCeil, snoise(vec3(noiseCoord.x*noiseFreq.x + time*noiseFlow, noiseCoord.y*noiseFreq.y, time * noiseSpeed + noiseSeed)));
 
@@ -161,11 +161,11 @@ const ThreeScene: React.FC = () => {
 
         renderer.setSize(window.innerWidth, window.innerHeight);
         containerRef.current?.appendChild(renderer.domElement);
-        camera.position.set(0, 0, 0.4);
+        camera.position.set(0, 0, 0.2);
         controls.update();
 
         // Create Plane
-        const geometry = new THREE.PlaneGeometry(10, 10, 200, 200);
+        const geometry = new THREE.PlaneGeometry(20, 20, 200, 200);
         const material = new THREE.ShaderMaterial({
           vertexShader,
           fragmentShader,
@@ -200,7 +200,7 @@ const ThreeScene: React.FC = () => {
 
         // Animation Loop
         function animate() {
-          time += 0.0001;
+          time += 0.00005;
           material.uniforms.time.value = time;
           requestAnimationFrame(animate);
           controls.update();
