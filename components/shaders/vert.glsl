@@ -84,7 +84,7 @@ void main() {
 
   float tilt = -0.8*uv.y;
 
-  float incline = uv.x*0.5;
+  float incline = uv.x*0.8;
 
   float offset = incline*mix(-.25,0.25,uv.y);
 
@@ -99,7 +99,7 @@ void main() {
     float noiseFlow = 5. * float(i)*0.3;
     float noiseSpeed = 10. + float(i)*0.3;
     float noiseSeed = 1. + float(i)*10.;
-    vec2 noiseFreq = vec2(3,4);
+    vec2 noiseFreq = vec2(0.6,0.9);
 
     float noiseFloor = 0.1;
     float noiseCeil = 0.6 + float(i)*0.07;

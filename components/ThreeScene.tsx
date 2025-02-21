@@ -92,7 +92,7 @@ void main() {
 
   vec2 noiseCoord = uv*vec2(3.,4.);
 
-  float tilt = -0.8*uv.y;
+  float tilt = -2.*uv.y;
 
   float incline = uv.x*0.5;
 
@@ -101,7 +101,7 @@ void main() {
   float noise = snoise(vec3(noiseCoord.x + time*3., noiseCoord.y, time*10.));
   noise = max(0.,noise);
 
-  vec3 pos = vec3(position.x,position.y,position.z + noise * 0.1 + tilt + incline + offset);
+  vec3 pos = vec3(position.x,position.y,position.z + noise * 1. + tilt + incline + offset);
 
   vColor = uColor[4];
 
@@ -161,11 +161,11 @@ const ThreeScene: React.FC = () => {
 
         renderer.setSize(window.innerWidth, window.innerHeight);
         containerRef.current?.appendChild(renderer.domElement);
-        camera.position.set(0, 0, 0.2);
+        camera.position.set(0, 0, 0.4);
         controls.update();
 
         // Create Plane
-        const geometry = new THREE.PlaneGeometry(3, 3, 100, 100);
+        const geometry = new THREE.PlaneGeometry(10, 10, 200, 200);
         const material = new THREE.ShaderMaterial({
           vertexShader,
           fragmentShader,
