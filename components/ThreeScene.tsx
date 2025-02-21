@@ -3,8 +3,13 @@ import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 import WebGL from "three/addons/capabilities/WebGL.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import Colors from "nice-color-palettes"
+
+const pallete = Colors[Math.floor(Math.random() * Colors.length)]
+const newPallete = pallete.map((color:string) => new THREE.Color(color))
 
 const vertexShader = `uniform float time;
+uniform vec3 uColor[5];
 varying vec2 vUv;
 varying vec3 vColor;
 
@@ -98,6 +103,19 @@ void main() {
 
   vec3 pos = vec3(position.x,position.y,position.z + noise * 0.1 + tilt + incline + offset);
 
+  vColor = uColor[4];
+
+  for(int i = 0; i < 5; i++){
+    float noiseFlow = 5. * float(i)*0.3;
+    float noiseSpeed = 10. + float(i)*0.3;
+    float noiseSeed = 1. + float(i)*10.;
+    vec2 noiseFreq = vec2(1,2);
+
+    float noise = snoise(vec3(noiseCoord.x*noiseFreq.x + time*noiseFlow, noiseCoord.y*noiseFreq.y, time * noiseSpeed + noiseSeed));
+
+    vColor = mix(vColor, uColor[i], noise);
+  }
+
   vUv = uv;
   vec4 modelPosition = modelMatrix * vec4(pos, 1.0);
   vec4 viewPosition = viewMatrix * modelPosition;
@@ -118,6 +136,9 @@ void main() {
   vec3 color = mix(colorA, colorB, vUv.x);
 
   gl_FragColor = vec4(color,1.0);
+  gl_FragColor = vec4(vColor,1.0);
+
+  
 }`;
 
 const ThreeScene: React.FC = () => {
@@ -137,11 +158,11 @@ const ThreeScene: React.FC = () => {
 
         renderer.setSize(window.innerWidth, window.innerHeight);
         containerRef.current?.appendChild(renderer.domElement);
-        camera.position.set(0, 0, 0.4);
+        camera.position.set(0, 0, 0.2);
         controls.update();
 
         // Create Plane
-        const geometry = new THREE.PlaneGeometry(1, 1, 300, 300);
+        const geometry = new THREE.PlaneGeometry(4, 4, 300, 300);
         const material = new THREE.ShaderMaterial({
           vertexShader,
           fragmentShader,
@@ -149,6 +170,7 @@ const ThreeScene: React.FC = () => {
           // wireframe: true,
           uniforms: { 
             time: { value: 0.0 },
+            uColor: {value: newPallete}
           },
         });
 
@@ -175,7 +197,7 @@ const ThreeScene: React.FC = () => {
 
         // Animation Loop
         function animate() {
-          time += 0.0005;
+          time += 0.0001;
           material.uniforms.time.value = time;
           requestAnimationFrame(animate);
           controls.update();

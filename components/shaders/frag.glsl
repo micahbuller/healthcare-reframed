@@ -8,4 +8,7 @@ void main() {
   vec3 color = mix(colorA, colorB, vUv.x);
 
   gl_FragColor = vec4(color,1.0);
+  gl_FragColor = vec4(vColor,1.0);
+
+  
 }

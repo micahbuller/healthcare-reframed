@@ -1,4 +1,5 @@
 uniform float time;
+uniform vec3 uColor[5];
 varying vec2 vUv;
 varying vec3 vColor;
 
@@ -91,6 +92,19 @@ void main() {
   noise = max(0.,noise);
 
   vec3 pos = vec3(position.x,position.y,position.z + noise * 0.1 + tilt + incline + offset);
+
+  vColor = uColor[4];
+
+  for(int i = 0; i < 5; i++){
+    float noiseFlow = 5. * float(i)*0.3;
+    float noiseSpeed = 10. + float(i)*0.3;
+    float noiseSeed = 1. + float(i)*10.;
+    vec2 noiseFreq = vec2(0.3,0.4);
+
+    float noise = snoise(vec3(noiseCoord.x*noiseFreq.x + time*noiseFlow, noiseCoord.y*noiseFreq.y, time * noiseSpeed + noiseSeed));
+
+    vColor = mix(vColor, uColor[i], noise);
+  }
 
   vUv = uv;
   vec4 modelPosition = modelMatrix * vec4(pos, 1.0);
