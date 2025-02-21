@@ -85,9 +85,18 @@ float snoise(vec3 v){
 
 void main() {
 
-  float noise = snoise(vec3(uv, time));
+  vec2 noiseCoord = uv*vec2(3.,4.);
 
-  vec3 pos = vec3(position.x,position.y,position.z + 0.1*sin(uv.x*20.));
+  float tilt = -0.8*uv.y;
+
+  float incline = uv.x*0.5;
+
+  float offset = incline*mix(-.25,0.25,uv.y);
+
+  float noise = snoise(vec3(noiseCoord.x + time*3., noiseCoord.y, time*10.));
+  noise = max(0.,noise);
+
+  vec3 pos = vec3(position.x,position.y,position.z + noise * 0.1 + tilt + incline + offset);
 
   vUv = uv;
   vec4 modelPosition = modelMatrix * vec4(pos, 1.0);
@@ -108,7 +117,7 @@ vec3 colorB = vec3(1.000,0.777,0.052);
 void main() {
   vec3 color = mix(colorA, colorB, vUv.x);
 
-  gl_FragColor = vec4(vColor,1.0);
+  gl_FragColor = vec4(color,1.0);
 }`;
 
 const ThreeScene: React.FC = () => {
@@ -128,7 +137,7 @@ const ThreeScene: React.FC = () => {
 
         renderer.setSize(window.innerWidth, window.innerHeight);
         containerRef.current?.appendChild(renderer.domElement);
-        camera.position.set(0, 0, 1);
+        camera.position.set(0, 0, 0.4);
         controls.update();
 
         // Create Plane
@@ -137,7 +146,7 @@ const ThreeScene: React.FC = () => {
           vertexShader,
           fragmentShader,
           side: THREE.DoubleSide,
-          wireframe: true,
+          // wireframe: true,
           uniforms: { 
             time: { value: 0.0 },
           },
@@ -166,7 +175,7 @@ const ThreeScene: React.FC = () => {
 
         // Animation Loop
         function animate() {
-          time += 0.05;
+          time += 0.0005;
           material.uniforms.time.value = time;
           requestAnimationFrame(animate);
           controls.update();

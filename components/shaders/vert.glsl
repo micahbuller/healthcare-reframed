@@ -1,3 +1,4 @@
+uniform float time;
 varying vec2 vUv;
 varying vec3 vColor;
 
@@ -78,12 +79,21 @@ float snoise(vec3 v){
 
 void main() {
 
-  float noise =snoise(vec3(uv, time));
+  vec2 noiseCoord = uv*vec2(3.,4.);
 
-  vec3 pos = vec3(position.x,position.y,position.y + 0.1*sin(uv.x*20));
+  float tilt = -0.8*uv.y;
+
+  float incline = uv.x*0.5;
+
+  float offset = incline*mix(-.25,0.25,uv.y);
+
+  float noise = snoise(vec3(noiseCoord.x + time*3., noiseCoord.y, time*10.));
+  noise = max(0.,noise);
+
+  vec3 pos = vec3(position.x,position.y,position.z + noise * 0.1 + tilt + incline + offset);
 
   vUv = uv;
-  vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+  vec4 modelPosition = modelMatrix * vec4(pos, 1.0);
   vec4 viewPosition = viewMatrix * modelPosition;
   vec4 projectedPosition = projectionMatrix * viewPosition;
 
