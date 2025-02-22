@@ -2,13 +2,12 @@
 import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 import WebGL from "three/addons/capabilities/WebGL.js";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 const pallete = ["#EC7A5B","#EB795C","#FDE8A6","#EEB7D5","#FEF8E5"] 
 
 const newPallete = pallete.map((color:string) => new THREE.Color(color))
 
-const vertexShader = `uniform float time;
+const vertexShader: string = `uniform float time;
 uniform vec3 uColor[5];
 varying vec2 vUv;
 varying vec3 vColor;
@@ -109,7 +108,7 @@ void main() {
     float noiseFlow = 5. * float(i)*0.3;
     float noiseSpeed = 10. + float(i)*0.3;
     float noiseSeed = 1. + float(i)*10.;
-    vec2 noiseFreq = vec2(0.3,0.5);
+    vec2 noiseFreq = vec2(0.4,0.6);
 
     float noiseFloor = 0.1;
     float noiseCeil = 0.8 + float(i)*0.07;
@@ -129,7 +128,7 @@ void main() {
 
 }`;
 
-const fragmentShader = `varying vec2 vUv;
+const fragmentShader: string = `varying vec2 vUv;
 varying vec3 vColor;
 
 vec3 colorA = vec3(0.912,0.191,0.652);
@@ -154,7 +153,6 @@ const ThreeScene: React.FC = () => {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
-        const controls = new OrbitControls(camera, renderer.domElement);
         let time: number = 0.01;
 
         renderer.setClearColor(0xffffff, 0);
@@ -162,7 +160,6 @@ const ThreeScene: React.FC = () => {
         renderer.setSize(window.innerWidth, window.innerHeight);
         containerRef.current?.appendChild(renderer.domElement);
         camera.position.set(0, 0, 0.2);
-        controls.update();
 
         // Create Plane
         const geometry = new THREE.PlaneGeometry(20, 20, 200, 200);
@@ -203,7 +200,6 @@ const ThreeScene: React.FC = () => {
           time += 0.00005;
           material.uniforms.time.value = time;
           requestAnimationFrame(animate);
-          controls.update();
           renderer.render(scene, camera);
         }
         animate();
