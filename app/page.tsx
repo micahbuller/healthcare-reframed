@@ -6,14 +6,14 @@ export default function Home() {
     <div className="flex flex-col font-[family-name:var(--font-geist-sans)]">
       <main>
         <div className="flex flex-col h-screen min-h-screen justify-between md:space-y-4 p-3 md:p-6">
-          <div className="relative flex flex-col h-3/4 overflow-hidden">
+          <div className="relative flex flex-col h-3/4 overflow-hidden bg-[#2F2C2C]">
             <ThreeScene />
             <div className="absolute left-0 bottom-0 bg-[#FFFBF7] text-[#2F2C2C] max-w-48 md:max-w-md text-2xl md:text-4xl pt-3 pr-3">
               <h1 className="uppercase text-right font-mono">What if healthcare focused on what mattered most</h1>
             </div>
           </div>
           <div className="flex flex-col">
-            <p className="uppercase font-sans max-w-xs md:max-w-none text-lg text-[#2F2C2C]">EXPLORE THE ANSWERS WITH US ON THE HEALTHCARE REFRAMED PODCAST</p>
+            <p className="uppercase font-sans max-w-xs md:max-w-none text-lg text-[#2F2C2C]">EXPLORE THE QUESTIONS THAT MATTER MOST WITH US ON THE HEALTHCARE REFRAMED PODCAST</p>
           </div>
           {/* Desktop Links */}
           <div className="hidden md:flex flex-row justify-end">
