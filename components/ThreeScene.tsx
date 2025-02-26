@@ -2,6 +2,7 @@
 import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 import WebGL from "three/addons/capabilities/WebGL.js";
+import gsap from "gsap";
 
 const pallete = ["#EC7A5B","#EB795C","#FDE8A6","#EEB7D5","#FEF8E5"] 
 
@@ -203,6 +204,13 @@ const ThreeScene: React.FC = () => {
           renderer.render(scene, camera);
         }
         animate();
+
+         // Apply Fade-in Effect with GSAP
+         gsap.fromTo(
+          containerRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 2, delay: 0.5 }
+        );
       }
     } else {
       const warning = WebGL.getWebGL2ErrorMessage();

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "gsap": "^3.12.7",
+    "gsap": "npm:@gsap/shockingly@^3.12.7",
     "next": "15.1.7",
     "nice-color-palettes": "^4.0.0",
     "react": "^19.0.0",
