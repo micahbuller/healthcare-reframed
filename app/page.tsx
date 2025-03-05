@@ -5,28 +5,33 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-9xl flex flex-col font-[family-name:var(--font-geist-sans)]">
       <main>
-        <div className="flex flex-col h-screen min-h-screen justify-between md:space-y-4 p-3 md:p-6">
-          <div className="relative flex flex-col h-3/4 overflow-hidden bg-[#2F2C2C]">
+        <div className="flex flex-col h-screen min-h-screen justify-between md:space-y-4 ">
+          <div className="relative flex flex-col h-full overflow-hidden bg-[#2F2C2C]">
             <ThreeScene />
-            <div className="absolute flex inset-0 text-[#2F2C2C] justify-center items-center text-2xl md:text-4xl ">
-              <h1 className="uppercase font-mono max-w-2xl text-center mix-blend-difference">WHAT IF WE REFRAMED HEALTHCARE ENTIRELY</h1>
-            </div>
-          </div>
-          <div className="flex flex-1 flex-col justify-center items-center">
-            <h2 className="font-sans uppercase">SCROLL</h2>
-            <div className="block h-6 w-6 relative">
-              <svg id="Arrow" data-name="Arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.83 20.41">
-                <g id="Arrow_2" data-name="Arrow_2">
-                  <path d="M20.41,8.09l-8.5,8.5V0h-2v16.59L1.41,8.09l-1.41,1.41,10.91,10.91,10.91-10.91-1.41-1.41Z" />
-                </g>
-              </svg>
+            <div className="absolute flex-col space-y-4 flex inset-0 text-[#2F2C2C] justify-center items-center text-2xl md:text-4xl ">
+              <h2 className="font-sans uppercase text-sm text-[#EC7A5B]">HEALTHCARE REFRAMED</h2>
+              <h1 className="uppercase font-mono max-w-2xl text-center text-[#EC7A5B]">Rethinking the System, One Conversation at a Time</h1>
+              <div className="absolute bottom-6 flex flex-1 flex-col justify-center space-y-2 items-center text-[#2F2C2C]">
+                <h2 className="font-sans uppercase text-sm text-[#EC7A5B]">SCROLL</h2>
+                <div className="block h-6 w-6 relative fill-[#EC7A5B]">
+                  <svg id="Arrow" data-name="Arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.83 20.41">
+                    <g id="Arrow_2" data-name="Arrow_2">
+                      <path d="M20.41,8.09l-8.5,8.5V0h-2v16.59L1.41,8.09l-1.41,1.41,10.91,10.91,10.91-10.91-1.41-1.41Z" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className="flex flex-col mx-auto max-w-7xl p-3 md:p-6">
-          <div className="flex flex-col max-w-2xl">
-            <h3 className="uppercase font-mono  md:max-w-none text-3xl text-[#2F2C2C]"><span className="text-[#EC7A5B]">HEALTHCARE REFRAMED</span> SITS DOWN WITH INTERNATIONAL THOUGHT LEADERS TO UNDERSTAND WHERE OUR HEALTHCARE SYSTEMS NEEDS TO CHANGE.</h3>
-            <p className="uppercase font-sans  md:max-w-none text-sm text-[#2F2C2C]">HEAR THE UNFILTERED EXPERIENCES OF THOSE WHO PUT YEARS OF THEIR LIVES INTO FIXING A BROKEN HEALTHCARE SYSTEM. WE WILL LEARN WHERE WE HAVE GONE WRONG AND WHAT WE CAN DO TO FIX IT, AND MAYBE EVEN BUILD IT FROM THE GROUND AGAIN.</p>
+          <div className="flex flex-col max-w-2xl my-24">
+            <h3 className="uppercase font-mono  md:max-w-none text-3xl text-[#2F2C2C]">
+              <span className="text-[#EC7A5B]">HEALTHCARE REFRAMED</span> SITS DOWN WITH INTERNATIONAL THOUGHT LEADERS TO UNDERSTAND WHERE OUR HEALTHCARE SYSTEMS NEEDS TO CHANGE.
+            </h3>
+            <p className="uppercase font-sans  md:max-w-none text-sm text-[#2F2C2C]">
+              HEAR THE UNFILTERED EXPERIENCES OF THOSE WHO PUT YEARS OF THEIR LIVES INTO FIXING A BROKEN HEALTHCARE SYSTEM. WE WILL LEARN WHERE WE HAVE GONE WRONG AND WHAT WE CAN DO TO FIX IT, AND MAYBE EVEN BUILD IT FROM THE GROUND AGAIN.
+            </p>
           </div>
           {/* Desktop Links */}
           <div className="hidden md:flex flex-row justify-end">
