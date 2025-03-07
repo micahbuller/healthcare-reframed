@@ -6,15 +6,15 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-9xl flex flex-col font-[family-name:var(--font-geist-sans)]">
       <main>
-        <div className="flex flex-col h-screen min-h-screen justify-between md:space-y-4 ">
-          <div className="relative flex flex-col h-full overflow-hidden bg-[#2F2C2C]">
+        <div className="flex flex-col h-svh max-h-svh justify-between md:space-y-4 ">
+          <div className="relative flex flex-col h-full overflow-hidden bg-[#EC7A5B]">
             <ThreeScene />
-            <div className="absolute flex-col space-y-4 flex inset-0 text-[#2F2C2C] justify-center items-center ">
-              <h2 className="font-sans uppercase text-md text-[#EC7A5B]">HEALTHCARE REFRAMED</h2>
-              <h1 className="uppercase font-mono max-w-xl md:max-w-2xl text-2xl md:text-4xl text-center text-[#EC7A5B]">Rethinking the System, One Conversation at a Time</h1>
+            <div className="absolute flex-col space-y-4 flex inset-0 text-[#2F2C2C] justify-center items-center mix-blend-difference will-change-transform">
+              <h2 className="font-sans uppercase text-md">HEALTHCARE REFRAMED</h2>
+              <h1 className="uppercase font-mono max-w-xl md:max-w-2xl text-xl sm:text-2xl md:text-4xl text-center">Rethinking the System, One Conversation at a Time</h1>
               <div className="absolute bottom-6 flex flex-1 flex-col justify-center space-y-2 items-center text-[#2F2C2C]">
-                <h2 className="font-sans uppercase text-sm text-[#EC7A5B]">SCROLL</h2>
-                <div className="block h-6 w-6 relative fill-[#EC7A5B]">
+                <h2 className="font-sans uppercase text-sm">SCROLL</h2>
+                <div className="block h-6 w-6 relative fill-[#2F2C2C]">
                   <svg id="Arrow" data-name="Arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.83 20.41">
                     <g id="Arrow_2" data-name="Arrow_2">
                       <path d="M20.41,8.09l-8.5,8.5V0h-2v16.59L1.41,8.09l-1.41,1.41,10.91,10.91,10.91-10.91-1.41-1.41Z" />
@@ -26,9 +26,9 @@ export default function Home() {
           </div>
         </div>
         <div className="relative flex flex-col mx-auto max-w-7xl p-3 md:p-6">
-          <div className="flex flex-col max-w-2xl my-36">
+          <div id="mission" className="flex flex-col max-w-2xl my-36">
             <h3 className="uppercase font-mono  md:max-w-none text-3xl text-[#2F2C2C]">
-              <span className="text-[#EC7A5B]">JUDSON HOWE</span> SITS DOWN WITH GLOBAL THOUGHT LEADERS TO UNDERSTAND HOW OUR HEALTHCARE SYSTEMS NEED TO CHANGE.
+              <span className="text-[#EC7A5B]">JUDSON HOWE</span> SITS DOWN WITH GLOBAL HEALTHCARE LEADERS TO UNDERSTAND HOW our SYSTEMS NEED TO CHANGE.
             </h3>
             <p className="uppercase font-sans  md:max-w-none text-sm text-[#2F2C2C]">HEAR THE UNFILTERED EXPERIENCES OF THOSE WHO HAVE DEVOTED THEIR LIVES TO YOUR HEALTHCARE SYSTEM. Exploring the failures — and the visionaries striving to fix them.</p>
           </div>
@@ -127,11 +127,13 @@ export default function Home() {
             </div>
           </div> */}
           {/* Podcast List */}
-          <div className="flex mb-12">
+          <div id="episodes" className="flex md:mb-12">
             <h2 className="text-md font-sans border-2 rounded-full py-2 px-4 border-[#2F2C2C] text-[#2F2C2C]">EPISODES COMING SOON</h2>
           </div>
-          <div className="flex flex-col w-full space-y-12">
-            <div className="flex flex-col md:flex-row w-full space-x-6">
+          <div className="relative flex flex-col w-full space-y-12 mb-24">
+            <div className="from-[#fffbf7] to-transparent bg-gradient-to-t z-20 absolute bottom-0 translate-y-1 w-full h-64"></div>
+
+            <div className="flex flex-col md:flex-row w-full space-y-6 md:space-x-6 cursor-not-allowed">
               <div className="relative aspect-video w-full h-auto md:h-64 md:w-auto bg-black rounded-3xl shrink-0 overflow-hidden">
                 <div className="absolute flex inset-0 z-10 bg-[#EC7A5B] bg-opacity-15 items-center justify-center">
                   <svg className="h-16 w-16 fill-[#EC7A5B]" id="Lock" data-name="Lock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4254.77 5199.84">
@@ -141,9 +143,11 @@ export default function Home() {
                 <Image fill src={"https://res.cloudinary.com/mindflip/image/upload/v1741312911/healthcare%20reframed/fl2sgcbv0xfotngkq1a7.png"} alt="Judson Howe Podcast with Göran Henriks" />
               </div>
               <div className="flex flex-col w-full space-y-6">
-                <h3 className="text-3xl font-mono uppercase text-[#2F2C2C]">fostering a culture of continuous learning</h3>
-                <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">Henriks has demonstrated that sustainable healthcare improvements are achievable by aligning organizational strategies with the needs and experiences of patients, thereby promoting a more effective and compassionate healthcare system.</p>
-                <div className="flex flex-row w-full items-center justify-between">
+                <h3 className="text-2xl md:text-3xl font-mono uppercase text-[#2F2C2C]">fostering a culture of continuous learning</h3>
+                <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">
+                  Henriks has demonstrated that sustainable healthcare improvements are achievable by aligning organizational strategies with the needs and experiences of patients, thereby promoting a more effective and compassionate healthcare system.
+                </p>
+                <div className="flex flex-col md:flex-row w-full space-y-6 md:items-center md:justify-between">
                   <p className="text-md font-mono uppercase text-[#2F2C2C]">Watch episode</p>
                   <div className="flex flex-row space-x-10">
                     <Link href={"https://www.youtube.com/"} rel="noopener noreferrer" target="_blank">
@@ -190,19 +194,21 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row w-full space-x-6">
+            <div className="flex flex-col md:flex-row w-full space-y-6 md:space-x-6  cursor-not-allowed">
               <div className="relative aspect-video w-full h-auto md:h-64 md:w-auto bg-black rounded-3xl shrink-0 overflow-hidden">
                 <div className="absolute flex inset-0 z-10 bg-[#EC7A5B] bg-opacity-15 items-center justify-center">
                   <svg className="h-16 w-16 fill-[#EC7A5B]" id="Lock" data-name="Lock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4254.77 5199.84">
                     <path d="M4254.77,2718.35v2127c0,195.83-159.45,354.5-355.27,354.5H354.5c-195.83,0-354.5-158.67-354.5-354.5v-2127c0-195.83,158.67-354.5,354.5-354.5h118.42v-709C472.92,746.15,1219.08,0,2127,0s1654.85,746.15,1654.85,1654.85v709h117.65c195.83,0,355.27,158.67,355.27,354.5ZM880.83,2373.14h2493.11v-697.39c0-698.16-560.39-1267.84-1246.94-1267.84S880.83,977.58,880.83,1675.75v697.39Z" />
                   </svg>
                 </div>
-                <Image fill src={"https://res.cloudinary.com/mindflip/image/upload/v1741312911/healthcare%20reframed/fl2sgcbv0xfotngkq1a7.png"} alt="Judson Howe Podcast with Göran Henriks" />
+                <Image fill src={"https://res.cloudinary.com/mindflip/image/upload/v1741317671/healthcare%20reframed/rlmuafm9xauhg0gnxpss.jpg"} alt="Judson Howe Podcast with Maureen Bisognano" />
               </div>
               <div className="flex flex-col w-full space-y-6">
-                <h3 className="text-3xl font-mono uppercase text-[#2F2C2C]">fostering a culture of continuous learning</h3>
-                <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">Henriks has demonstrated that sustainable healthcare improvements are achievable by aligning organizational strategies with the needs and experiences of patients, thereby promoting a more effective and compassionate healthcare system.</p>
-                <div className="flex flex-row w-full items-center justify-between">
+                <h3 className="text-2xl md:text-3xl font-mono uppercase text-[#2F2C2C]">Get involved outside the traditional healthcare system</h3>
+                <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">
+                  As President Emerita and Senior Fellow at the Institute for Healthcare Improvement (IHI), she emphasizes patient-centered care and the importance of understanding patients’ needs and experiences to drive quality improvement.
+                </p>
+                <div className="flex flex-col md:flex-row w-full space-y-6 md:items-center md:justify-between">
                   <p className="text-md font-mono uppercase text-[#2F2C2C]">Watch episode</p>
                   <div className="flex flex-row space-x-10">
                     <Link href={"https://www.youtube.com/"} rel="noopener noreferrer" target="_blank">
@@ -249,7 +255,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row w-full space-x-6">
+            <div className="flex flex-col md:flex-row w-full space-y-6 md:space-x-6  cursor-not-allowed">
               <div className="relative aspect-video w-full h-auto md:h-64 md:w-auto bg-black rounded-3xl shrink-0 overflow-hidden">
                 <div className="absolute flex inset-0 z-10 bg-[#EC7A5B] bg-opacity-15 items-center justify-center">
                   <svg className="h-16 w-16 fill-[#EC7A5B]" id="Lock" data-name="Lock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4254.77 5199.84">
@@ -259,9 +265,11 @@ export default function Home() {
                 <Image fill src={"https://res.cloudinary.com/mindflip/image/upload/v1741312911/healthcare%20reframed/fl2sgcbv0xfotngkq1a7.png"} alt="Judson Howe Podcast with Göran Henriks" />
               </div>
               <div className="flex flex-col w-full space-y-6">
-                <h3 className="text-3xl font-mono uppercase text-[#2F2C2C]">fostering a culture of continuous learning</h3>
-                <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">Henriks has demonstrated that sustainable healthcare improvements are achievable by aligning organizational strategies with the needs and experiences of patients, thereby promoting a more effective and compassionate healthcare system.</p>
-                <div className="flex flex-row w-full items-center justify-between">
+                <h3 className="text-2xl md:text-3xl font-mono uppercase text-[#2F2C2C]">fostering a culture of continuous learning</h3>
+                <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">
+                  Henriks has demonstrated that sustainable healthcare improvements are achievable by aligning organizational strategies with the needs and experiences of patients, thereby promoting a more effective and compassionate healthcare system.
+                </p>
+                <div className="flex flex-col md:flex-row w-full space-y-6 md:items-center md:justify-between">
                   <p className="text-md font-mono uppercase text-[#2F2C2C]">Watch episode</p>
                   <div className="flex flex-row space-x-10">
                     <Link href={"https://www.youtube.com/"} rel="noopener noreferrer" target="_blank">
@@ -314,14 +322,22 @@ export default function Home() {
       <footer className="flex flex-col bg-[#2F2C2C] text-[#FFFBF7] p-3 md:p-6 py-12 font-sans space-y-6 text-sm">
         <div className="flex flex-row w-full">
           <div className="flex flex-col space-y-2">
-            <p>MISSION</p>
-            <p>EPISODES</p>
-            <p>CONTACT</p>
+            <Link href={"#mission"}>
+              <p>MISSION</p>
+            </Link>
+            <Link href={"#episodes"}>
+              <p>EPISODES</p>
+            </Link>
+            <Link href={"mailto:judson@haelanllc.com"}>
+              <p>CONTACT</p>
+            </Link>
           </div>
         </div>
         <div className="flex flex-row w-full justify-end md:justify-normal">
           <div className="flex flex-col text-right md:text-left md:flex-row-reverse w-full md:justify-between space-y-2 md:space-y-0">
-            <p>SITE CREDIT</p>
+            <Link href={"https://uiio.dev/"} rel="noopener noreferrer" target="_blank">
+              <p>SITE CREDIT</p>
+            </Link>
             <p>LEGAL * TERMS OF SERVICE</p>
             <p>©2025 HEALTHCARE REFRAMED</p>
           </div>
