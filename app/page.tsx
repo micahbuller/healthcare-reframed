@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-9xl flex flex-col font-[family-name:var(--font-geist-sans)]">
       <main>
-        <Hero/>
+        <Hero />
         <div className="relative flex flex-col mx-auto max-w-7xl p-3 md:p-6">
           <div id="mission" className="flex flex-col max-w-2xl my-36">
             <h3 className="uppercase font-mono  md:max-w-none text-3xl text-[#2F2C2C]">
@@ -244,13 +244,11 @@ export default function Home() {
                     <path d="M4254.77,2718.35v2127c0,195.83-159.45,354.5-355.27,354.5H354.5c-195.83,0-354.5-158.67-354.5-354.5v-2127c0-195.83,158.67-354.5,354.5-354.5h118.42v-709C472.92,746.15,1219.08,0,2127,0s1654.85,746.15,1654.85,1654.85v709h117.65c195.83,0,355.27,158.67,355.27,354.5ZM880.83,2373.14h2493.11v-697.39c0-698.16-560.39-1267.84-1246.94-1267.84S880.83,977.58,880.83,1675.75v697.39Z" />
                   </svg>
                 </div>
-                <Image fill src={"https://res.cloudinary.com/mindflip/image/upload/v1741312911/healthcare%20reframed/fl2sgcbv0xfotngkq1a7.png"} alt="Judson Howe Podcast with Göran Henriks" />
+                <Image fill src={"https://res.cloudinary.com/mindflip/image/upload/v1741321112/healthcare%20reframed/woaw1cq7eqygpsob7ckc.jpg"} alt="Judson Howe Podcast with Göran Henriks" />
               </div>
               <div className="flex flex-col w-full space-y-6">
-                <h3 className="text-2xl md:text-3xl font-mono uppercase text-[#2F2C2C]">fostering a culture of continuous learning</h3>
-                <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">
-                  Henriks has demonstrated that sustainable healthcare improvements are achievable by aligning organizational strategies with the needs and experiences of patients, thereby promoting a more effective and compassionate healthcare system.
-                </p>
+                <h3 className="text-2xl md:text-3xl font-mono uppercase text-[#2F2C2C]">whole-person health, community well-being, and compassionate leadership</h3>
+                <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">Under his guidance, Adventist Health acquired Blue Zones, aiming to improve health at the community level by addressing systemic and environmental factors. </p>
                 <div className="flex flex-col md:flex-row w-full space-y-6 md:items-center md:justify-between">
                   <p className="text-md font-mono uppercase text-[#2F2C2C]">Watch episode</p>
                   <div className="flex flex-row space-x-10">
