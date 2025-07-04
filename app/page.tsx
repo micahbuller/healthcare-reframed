@@ -77,7 +77,7 @@ export default function Home() {
         {/* Podcast List */}
         <div id="mission" className="relative flex flex-col w-full">
           <div className="flex flex-col mx-auto w-full max-w-7xl p-3 md:p-6">
-            <div id="episodes" className="flex md:mb-12">
+            <div id="episodes" className="flex mb-12">
               <h2 className="text-md font-sans border-2 rounded-full py-2 px-4 border-[#2F2C2C] text-[#2F2C2C]">EPISODES COMING SOON</h2>
             </div>
             <div className="relative flex flex-col w-full space-y-12 mb-24">
