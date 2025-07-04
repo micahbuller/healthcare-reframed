@@ -1,6 +1,11 @@
-import React from "react";
+"use client"
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export interface PostHeroProps {
   imageSrc: string;
@@ -40,9 +45,30 @@ const ScrollStoryButton: React.FC<{ link: string }> = ({ link }) => {
 
 const PostHero: React.FC<{ episode: PostHeroProps }> = ({ episode }) => {
   const { imageSrc, imageAlt, heading, paragraph, youtubeLink, spotifyLink, appleMusicLink, scrollStory } = episode;
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    gsap.fromTo(
+      element,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.inOut",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 100%", // Animation starts when the bottom of the element is 90% visible
+          end: "top 20%", // Animation ends when the top of the element is 20% visible
+          toggleActions: "play none none reset", // Replay animation every time the element enters the viewport
+        },
+      }
+    );
+  }, []);
 
   return (
-    <div className="flex flex-col md:flex-row w-full space-y-6 md:space-x-6">
+    <div ref={ref} className="flex flex-col md:flex-row w-full space-y-6 md:space-x-6">
       <div className="relative aspect-video w-full h-auto md:h-64 md:w-auto bg-black rounded-3xl shrink-0 overflow-hidden">
         <div className="absolute flex inset-0 z-10 bg-[#EC7A5B] bg-opacity-15 items-center justify-center">
           <svg className="h-16 w-16 fill-[#EC7A5B]" id="Lock" data-name="Lock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4254.77 5199.84">
