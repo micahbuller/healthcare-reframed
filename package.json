@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "gsap": "npm:@gsap/shockingly@^3.12.7",
     "next": "15.1.7",
     "nice-color-palettes": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
     "three": "^0.173.0"
   },
   "devDependencies": {

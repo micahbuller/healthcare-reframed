@@ -1,7 +1,7 @@
-import Link from "next/link";
 import Hero from "@/components/Hero";
 import PostHero, { PostHeroProps } from "@/components/PostHero";
 import PhotoGrid from "@/components/PhotoGrid";
+// import { getAllPosts } from "@/lib/posts";
 
 const episodes: PostHeroProps[] = [
   {
@@ -50,6 +50,8 @@ const placeholderImages = [
 ];
 
 export default function Home() {
+  // const allPosts = getAllPosts()
+
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">
       <main>
@@ -88,30 +90,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <footer className="flex flex-col bg-[#2F2C2C] text-[#FFFBF7] p-3 md:p-6 py-12 font-sans space-y-6 text-sm">
-        <div className="flex flex-row w-full">
-          <div className="flex flex-col space-y-2">
-            <Link href={"#mission"}>
-              <p>MISSION</p>
-            </Link>
-            <Link href={"#episodes"}>
-              <p>EPISODES</p>
-            </Link>
-            <Link href={"mailto:judson@haelanllc.com"}>
-              <p>CONTACT</p>
-            </Link>
-          </div>
-        </div>
-        <div className="flex flex-row w-full justify-end md:justify-normal">
-          <div className="flex flex-col text-right md:text-left md:flex-row-reverse w-full md:justify-between space-y-2 md:space-y-0">
-            <Link href={"https://uiio.dev/"} rel="noopener noreferrer" target="_blank">
-              <p>SITE CREDIT</p>
-            </Link>
-            <p>LEGAL * TERMS OF SERVICE</p>
-            <p>©2025 HEALTHCARE REFRAMED</p>
-          </div>
-        </div>
-      </footer>
+      
     </div>
   );
 }
