@@ -37,7 +37,13 @@ const PhotoGrid: React.FC<{ images: string[] }> = ({ images }) => {
             [3, 4, 5].includes(index) ? "md:translate-x-24" : "" // Offset middle rows
           }`}
         >
-          <Image src={src} alt={`Photo ${index + 1}`} layout="fill" objectFit="cover" />
+          <Image
+            src={src}
+            alt={`Photo ${index + 1}`}
+            sizes="(max-width: 768px) 33vw, (max-width: 1200px) 16vw, 10vw"
+            fill // Replaces `layout="fill"`
+            style={{ objectFit: "cover" }} // Replaces `objectFit="cover"`
+          />
         </div>
       ))}
     </div>

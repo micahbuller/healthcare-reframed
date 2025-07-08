@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Ensure this is a Client Component
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -6,20 +6,20 @@ import ThreeScene from "./ThreeScene";
 
 function HeaderMenu() {
   const pathname = usePathname(); // Detect the current route
-  const [isHomePage, setIsHomePage] = useState(true);
+  const [isHomePage, setIsHomePage] = useState(false); // Default to false for SSR consistency
 
   useEffect(() => {
-    setIsHomePage(pathname === "/"); // Check if the current route is the home page
+    // Update state dynamically on the client
+    setIsHomePage(pathname === "/");
   }, [pathname]);
 
   return (
-    <div className="absolute top-0 left-0 right-0 z-50 ">
-      <div
-        className={`flex items-center justify-between w-full px-6 py-1 ${
-          isHomePage ? "bg-transparent" : "bg-[#EC7A5B]"
-        }`}
-       
-      >
+    <div
+      className={`absolute top-0 left-0 right-0 z-50 ${
+        isHomePage ? "bg-transparent" : "bg-[#EC7A5B]"
+      }`} // Ensure consistent rendering
+    >
+      <div className="flex items-center justify-between w-full px-6 py-1">
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/">
@@ -45,9 +45,7 @@ function HeaderMenu() {
         )}
       </div>
     </div>
-
-
-
-);}
+  );
+}
 
 export default HeaderMenu;
