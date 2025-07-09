@@ -5,6 +5,7 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BlogPost } from "@/types/types";
+import PostHeroDescription from "./PostHeroDescription";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,7 +65,7 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
 
         <div className="flex flex-col w-full space-y-6">
           <h3 className="text-2xl md:text-xl lg:text-3xl font-mono uppercase text-[#2F2C2C]">{title}</h3>
-          <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">{description}</p>
+          <PostHeroDescription description={description} />
           <div className="flex flex-col md:flex-row w-full space-y-6 md:items-center md:justify-between">
             <div className="flex flex-row space-x-4">
               <Link href={"/transcripts/" + slug} className="text-md font-mono uppercase text-[#2F2C2C] hover:text-[#EC7A5B] transition-colors duration-300">

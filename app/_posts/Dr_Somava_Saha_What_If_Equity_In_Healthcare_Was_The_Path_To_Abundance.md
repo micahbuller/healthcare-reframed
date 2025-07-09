@@ -1,7 +1,7 @@
 ---
-title: "Dr. Somava Saha"
+title: "Dr. Somava Saha: What if equity in healthcare was a path to abundance?"
 date: "2020-01-01"
-description: "Description Goes Here"
+description: "In this episode, we are talking with Somava Saha. She is a primary care physician who began her medical career in rural Guyana where she learned how radical change can be accomplished even with very limited resources. She went on to leadership roles at Cambridge Health Alliance in Boston, at the Institute for Healthcare Improvement, and at her own non-profit organization, WE (Wellness and Equity) in the World.  She is a passionate and tireless advocate for a better world, and she believes that as healthcare leaders it is our responsibility to “get it together and make things better” for our patients and our communities."
 imageUrl: "https://res.cloudinary.com/mindflip/image/upload/v1752036902/healthcare%20reframed/Episodes/002_Somava_Saha/Screenshot_2025-06-19_at_1.14.48_PM_rifqxq.jpg"
 externalLink: "https://external-resource.com"
 youtubeLink: "https://youtube.com/example"
