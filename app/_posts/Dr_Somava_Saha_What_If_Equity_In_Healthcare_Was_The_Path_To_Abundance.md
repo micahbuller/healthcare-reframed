@@ -1,9 +1,8 @@
 ---
-title: "We recommend using"
-date: "2020-01-02"
-slug: "we-recommend"
-description: "A comparison of Static Generation and Server-side Rendering."
-imageUrl: "https://res.cloudinary.com/mindflip/image/upload/v1741321112/healthcare%20reframed/woaw1cq7eqygpsob7ckc.jpg"
+title: "Dr. Somava Saha"
+date: "2020-01-01"
+description: "Description Goes Here"
+imageUrl: "https://res.cloudinary.com/mindflip/image/upload/v1752036902/healthcare%20reframed/Episodes/002_Somava_Saha/Screenshot_2025-06-19_at_1.14.48_PM_rifqxq.jpg"
 externalLink: "https://external-resource.com"
 youtubeLink: "https://youtube.com/example"
 spotifyLink: "https://spotify.com/example"

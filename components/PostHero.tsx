@@ -8,7 +8,6 @@ import { BlogPost } from "@/types/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
-
 const ScrollStoryButton: React.FC<{ link: string }> = ({ link }) => {
   return (
     <div className="flex justify-start items-center">
@@ -23,7 +22,7 @@ const ScrollStoryButton: React.FC<{ link: string }> = ({ link }) => {
 };
 
 const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
-  const { title, description, imageUrl, youtubeLink, spotifyLink, appleMusicLink, externalLink } = episode;
+  const { title, description, imageUrl, youtubeLink, spotifyLink, appleMusicLink, externalLink, slug } = episode;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,8 +46,8 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
   }, []);
 
   return (
-    <div className="flex flex-col space-y-6">
-      <div ref={ref} className="flex flex-col md:flex-row w-full space-y-6 md:space-x-6">
+    <div ref={ref} className="flex flex-col space-y-6">
+      <div  className="flex flex-col md:flex-row w-full space-y-6 md:space-x-6">
         <Link href={youtubeLink} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
           <div className="relative aspect-video w-full h-auto md:h-64  md:w-auto bg-black rounded-3xl shrink-0 overflow-hidden">
             <div className="absolute flex inset-0 z-10  items-center justify-center">
@@ -59,7 +58,7 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
                 </svg>
               </div>
             </div>
-            <Image objectFit="cover" width={750} height={400} src={imageUrl} alt={"Image of " + title}/>
+            <Image objectFit="cover" width={750} height={400} src={imageUrl} alt={"Image of " + title} />
           </div>
         </Link>
 
@@ -68,8 +67,9 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
           <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">{description}</p>
           <div className="flex flex-col md:flex-row w-full space-y-6 md:items-center md:justify-between">
             <div className="flex flex-row space-x-4">
-              
-              <p className="text-md font-mono uppercase text-[#2F2C2C]">Read Transcript</p>
+              <Link href={"/transcripts/" + slug} className="text-md font-mono uppercase text-[#2F2C2C] hover:text-[#EC7A5B] transition-colors duration-300">
+                <p className="text-md font-mono uppercase text-[#2F2C2C]">Read Transcript</p>
+              </Link>
             </div>
             <div className="flex flex-row space-x-10">
               <Link href={youtubeLink} rel="noopener noreferrer" target="_blank">

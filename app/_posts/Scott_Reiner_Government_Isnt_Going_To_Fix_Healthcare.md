@@ -1,9 +1,8 @@
 ---
-title: "When to Use Static Generation v.s. Server-side Rendering"
+title: "Scott Reiner Title"
 date: "2020-01-02"
-slug: "when-to-use"
 description: "A comparison of Static Generation and Server-side Rendering."
-imageUrl: "https://res.cloudinary.com/mindflip/image/upload/v1741321112/healthcare%20reframed/woaw1cq7eqygpsob7ckc.jpg"
+imageUrl: "https://res.cloudinary.com/mindflip/image/upload/v1752035000/healthcare%20reframed/Episodes/001_Scott_Reiner/EAA2BA93-D844-46EA-BB63-33F0BB69D207_r7lgtu.jpg"
 externalLink: "https://external-resource.com"
 youtubeLink: "https://youtube.com/example"
 spotifyLink: "https://spotify.com/example"
