@@ -4,19 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { BlogPost } from "@/types/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export interface PostHeroProps {
-  imageSrc: string;
-  imageAlt: string;
-  heading: string;
-  paragraph: string;
-  scrollStory?: string; // Optional property for scroll story
-  youtubeLink: string;
-  spotifyLink: string;
-  appleMusicLink: string;
-}
 
 const ScrollStoryButton: React.FC<{ link: string }> = ({ link }) => {
   return (
@@ -31,8 +22,8 @@ const ScrollStoryButton: React.FC<{ link: string }> = ({ link }) => {
   );
 };
 
-const PostHero: React.FC<{ episode: PostHeroProps }> = ({ episode }) => {
-  const { imageSrc, imageAlt, heading, paragraph, youtubeLink, spotifyLink, appleMusicLink, scrollStory } = episode;
+const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
+  const { title, description, imageUrl, youtubeLink, spotifyLink, appleMusicLink, externalLink } = episode;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -58,20 +49,26 @@ const PostHero: React.FC<{ episode: PostHeroProps }> = ({ episode }) => {
   return (
     <div className="flex flex-col space-y-6">
       <div ref={ref} className="flex flex-col md:flex-row w-full space-y-6 md:space-x-6">
-        <div className="relative aspect-video w-full h-auto md:h-64  md:w-auto bg-black rounded-3xl shrink-0 overflow-hidden">
-          <div className="absolute flex inset-0 z-10 bg-[#EC7A5B] bg-opacity-15 items-center justify-center">
-            <svg className="h-16 w-16 fill-[#EC7A5B]" id="Lock" data-name="Lock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4254.77 5199.84">
-              <path d="M4254.77,2718.35v2127c0,195.83-159.45,354.5-355.27,354.5H354.5c-195.83,0-354.5-158.67-354.5-354.5v-2127c0-195.83,158.67-354.5,354.5-354.5h118.42v-709C472.92,746.15,1219.08,0,2127,0s1654.85,746.15,1654.85,1654.85v709h117.65c195.83,0,355.27,158.67,355.27,354.5ZM880.83,2373.14h2493.11v-697.39c0-698.16-560.39-1267.84-1246.94-1267.84S880.83,977.58,880.83,1675.75v697.39Z" />
-            </svg>
+        <Link href={youtubeLink} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
+          <div className="relative aspect-video w-full h-auto md:h-64  md:w-auto bg-black rounded-3xl shrink-0 overflow-hidden">
+            <div className="absolute flex inset-0 z-10  items-center justify-center">
+              {/* Play Button */}
+              <div className="flex items-center justify-center w-16 h-16 bg-opacity-50 backdrop-blur-lg bg-[#EC7A5B] rounded-full shadow-lg cursor-pointer transition-transform duration-300 hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="white" className="w-8 h-8">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 3l14 9-14 9V3z" />
+                </svg>
+              </div>
+            </div>
+            <Image objectFit="cover" width={750} height={400} src={imageUrl} alt={"Image of " + title}/>
           </div>
-          <Image fill src={imageSrc} alt={imageAlt} />
-        </div>
+        </Link>
+
         <div className="flex flex-col w-full space-y-6">
-          <h3 className="text-2xl md:text-xl lg:text-3xl font-mono uppercase text-[#2F2C2C]">{heading}</h3>
-          <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">{paragraph}</p>
+          <h3 className="text-2xl md:text-xl lg:text-3xl font-mono uppercase text-[#2F2C2C]">{title}</h3>
+          <p className="text-md font-sans uppercase text-[#2F2C2C] line-clamp-2">{description}</p>
           <div className="flex flex-col md:flex-row w-full space-y-6 md:items-center md:justify-between">
             <div className="flex flex-row space-x-4">
-              <p className="text-md font-mono uppercase text-[#2F2C2C]">Watch episode</p>
+              
               <p className="text-md font-mono uppercase text-[#2F2C2C]">Read Transcript</p>
             </div>
             <div className="flex flex-row space-x-10">
@@ -119,7 +116,7 @@ const PostHero: React.FC<{ episode: PostHeroProps }> = ({ episode }) => {
           </div>
         </div>
       </div>
-      {scrollStory && <ScrollStoryButton link={scrollStory} />}
+      {externalLink && <ScrollStoryButton link={externalLink} />}
     </div>
   );
 };
