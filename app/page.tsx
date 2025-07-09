@@ -7,7 +7,7 @@ const placeholderImages = [
   "https://res.cloudinary.com/mindflip/image/upload/v1751658633/healthcare%20reframed/PhotoGrid/BeckyPayneAtHealthcareReframedTable.jpg",
   "https://res.cloudinary.com/mindflip/image/upload/v1751658632/healthcare%20reframed/PhotoGrid/Becky_Payne.jpg",
   "https://res.cloudinary.com/mindflip/image/upload/v1751657839/healthcare%20reframed/PhotoGrid/Scott_Reiner.jpg",
-  "https://res.cloudinary.com/mindflip/image/upload/v1751657837/healthcare%20reframed/PhotoGrid/Judson_Howe_With_TV_Background_In_Healthcare_Reframed.jpg",
+  "https://res.cloudinary.com/mindflip/image/upload/v1751657837/healthcare-reframed/PhotoGrid/Judson_Howe_With_TV_Background_In_Healthcare_Reframed.jpg",
   "https://res.cloudinary.com/mindflip/image/upload/v1751657835/healthcare%20reframed/PhotoGrid/Brandon_Alleman_With_Healthcare_Reframed.jpg",
   "https://res.cloudinary.com/mindflip/image/upload/v1751657835/healthcare%20reframed/PhotoGrid/Benjamin_Anderson_With_Healthcare_Reframed.jpg",
   "https://res.cloudinary.com/mindflip/image/upload/v1751657835/healthcare%20reframed/PhotoGrid/Somava_Saha_With_Healthcare_Reframed.jpg",
@@ -15,8 +15,8 @@ const placeholderImages = [
   "https://res.cloudinary.com/mindflip/image/upload/v1751657832/healthcare%20reframed/PhotoGrid/Judson_Howe_Healthcare_Reframed_Kitchen_Interview.jpg",
 ];
 
-export default function Home() {
-  const allPosts = getAllPosts(); // Fetch all posts dynamically
+export default async function Home() {
+  const allPosts = await getAllPosts(); // Await the result of the asynchronous function
 
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">

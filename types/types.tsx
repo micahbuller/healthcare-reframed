@@ -1,6 +1,8 @@
+import { MDXRemoteSerializeResult } from "next-mdx-remote/rsc";
+
 export interface BlogPost {
   slug: string;
-  content: string;
+  content: string | MDXRemoteSerializeResult; // Raw MDX string or serialized MDX content
   id: string;
   title: string; // Title of the blog post
   description: string; // Short description of the blog post

@@ -1,28 +1,40 @@
-import { BlogPost } from "@/types/types";
 import fs from "fs";
+import path from "path";
 import matter from "gray-matter";
-import { join } from "path";
+import { serialize } from "next-mdx-remote/serialize";
+import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import { BlogPost } from "@/types/types";
 
-const postsDirectory = join("app/_posts");
+const postsDirectory = path.join(process.cwd(), "app/content/posts");
 
 export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory);
+  return fs.readdirSync(postsDirectory).map((file) => file.replace(/\.mdx$/, ""));
 }
 
-export function getPostBySlug(slug: string) {
-  const realSlug = slug.replace(/\.md$/, "");
-  const fullPath = join(postsDirectory, `${realSlug}.md`);
+export async function getPostBySlug(slug: string): Promise<BlogPost> {
+  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
-  return { ...data, slug: realSlug, content } as BlogPost;
+  return {
+    id: data.id || slug, // Use slug as fallback for id
+    slug,
+    title: data.title,
+    description: data.description,
+    imageUrl: data.imageUrl,
+    externalLink: data.externalLink,
+    date: data.date,
+    youtubeLink: data.youtubeLink || "", // Provide default value if missing
+    spotifyLink: data.spotifyLink || "", // Provide default value if missing
+    appleMusicLink: data.appleMusicLink || "", // Provide default value if missing
+    content,
+  };
 }
 
-export function getAllPosts(): BlogPost[] {
+export async function getAllPosts() {
   const slugs = getPostSlugs();
-  const posts = slugs
-    .map((slug) => getPostBySlug(slug))
-    // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
-  return posts;
+  const posts = await Promise.all(slugs.map((slug) => getPostBySlug(slug)));
+  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
