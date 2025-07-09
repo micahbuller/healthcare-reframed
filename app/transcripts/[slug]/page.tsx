@@ -18,7 +18,7 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
         <h1 className="text-4xl font-bold text-[#2F2C2C]">{post.title}</h1>
         <p className="text-lg text-gray-600">{post.description}</p>
         <Image src={post.imageUrl} alt={post.title} width={1920} height={1080} className="w-full rounded-lg shadow-md" style={{ objectFit: "cover" }} />
-        <article className="prose text-[#2F2C2C]">
+        <article className="prose prose-lg max-w-7xl pt-24 text-[#2F2C2C]">
           <MDXRemote source={post.content} />
         </article>
         <a href={post.externalLink} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline hover:text-blue-700">
