@@ -96,6 +96,10 @@ function HeaderMenu() {
         }`}
       >
         <div ref={menuItemsRef} className="flex flex-col justify-start space-y-6 mt-24">
+          <Link href="/">
+            <p className="font-sans uppercase text-6xl text-white hover:text-[#2F2C2C] transition-all duration-300">Home</p>
+          </Link>
+
           <Link href="/about">
             <p className="font-sans uppercase text-6xl text-white hover:text-[#2F2C2C] transition-all duration-300">About</p>
           </Link>
