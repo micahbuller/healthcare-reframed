@@ -38,7 +38,7 @@ export default async function Home() {
             <div className="flex flex-row w-full h-full justify-end">
               <div className="relative h-full w-full flex max-w-2xl md:max-w-4xl -mr-12 overflow-hidden">
                 <PhotoGrid images={placeholderImages} />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#ffffff] to-[#fffbf700]"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FFFBF7] to-[#fffbf700]"></div>
               </div>
             </div>
           </div>

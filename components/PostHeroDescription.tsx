@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 
 const PostHeroDescription: React.FC<{ description: string }> = ({ description }) => {
@@ -5,7 +6,7 @@ const PostHeroDescription: React.FC<{ description: string }> = ({ description })
 
   return (
     <div className="text-md font-sans uppercase text-[#2F2C2C]">
-      <p className={`line-clamp-${isExpanded ? "none" : "2"}`}>{description}</p>
+      <p className={isExpanded ? "line-clamp-none" : "line-clamp-2"}>{description}</p>
       <button
         className="mt-2 text-[#EC7A5B] font-mono uppercase text-sm hover:underline transition-all duration-300"
         onClick={() => setIsExpanded(!isExpanded)}

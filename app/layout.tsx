@@ -40,7 +40,7 @@ export default function RootLayout({
               <Link href={"#episodes"}>
                 <p>EPISODES</p>
               </Link>
-              <Link href={"mailto:judson@haelanllc.com"}>
+              <Link href={"mailto:info@healthcarereframed.org"}>
                 <p>CONTACT</p>
               </Link>
             </div>

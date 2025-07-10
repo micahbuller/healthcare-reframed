@@ -70,12 +70,13 @@ function HeaderMenu() {
               <p className="font-sans uppercase text-md transition-all duration-300">About</p>
             </div>
           </Link>
-          <Link href="/contact">
-            <div className="group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-lg">
-              <span className="w-2 h-2 border border-white group-hover:border-[#2F2C2C] rounded-full transition-all duration-300"></span> {/* Circle outline */}
-              <p className="font-sans uppercase text-md transition-all duration-300">Contact</p>
-            </div>
-          </Link>
+          <a
+            href="mailto:info@healthcarereframed.org"
+            className="group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-lg"
+          >
+            <span className="w-2 h-2 border border-white group-hover:border-[#2F2C2C] rounded-full transition-all duration-300"></span>
+            <p className="font-sans uppercase text-md transition-all duration-300">Contact</p>
+          </a>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -98,9 +99,13 @@ function HeaderMenu() {
           <Link href="/about">
             <p className="font-sans uppercase text-6xl text-white hover:text-[#2F2C2C] transition-all duration-300">About</p>
           </Link>
-          <Link href="/contact">
-            <p className="font-sans uppercase text-6xl text-white hover:text-[#2F2C2C] transition-all duration-300">Contact</p>
-          </Link>
+          <a
+            href="mailto:info@healthcarereframed.org"
+            className="group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-lg"
+          >
+            <span className="w-2 h-2 border border-white group-hover:border-[#2F2C2C] rounded-full transition-all duration-300"></span>
+            <p className="font-sans uppercase text-6xl transition-all duration-300">Contact</p>
+          </a>
         </div>
       </div>
     </>
