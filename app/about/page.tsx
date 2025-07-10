@@ -3,12 +3,13 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 
+
 const team = [
 	{
 		name: "Judson Howe",
 		role: "Host",
 		desc: `Judson is a healthcare executive with more than a decade of leadership experience as both a hospital CFO and CEO, primarily in rural Northern California. He has seen first-hand the pressures facing our organizational leaders as they try to make high-quality healthcare a core value in our communities. Judson’s passion for understanding the forces shaping our healthcare system and for seeking new insights into how to create change are the driving forces behind this podcast series.`,
-		img: "https://res.cloudinary.com/mindflip/image/upload/v1752111630/healthcare%20reframed/Website/Bios/IMG_9760_iih4h2.jpg", // Replace with your image path
+		img: "https://res.cloudinary.com/mindflip/image/upload/v1752162032/healthcare%20reframed/Website/Bios/IMG_0018-2_ymvcnv.jpg", // Replace with your image path
 	},
 	{
 		name: "Micah Buller",

@@ -1,3 +1,5 @@
+
+import { use } from "react";
 import { getPostBySlug, getPostSlugs } from "@/lib/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
@@ -7,11 +9,9 @@ export function generateStaticParams() {
   return slugs.map((slug: string) => ({ slug }));
 }
 
-const PostPage = async (props: any) => {
-  // Always await props before using params!
-  /* @next-codemod-ignore */
-  const { params } = await props;
-  const post = getPostBySlug(params.slug);
+export default function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
+  const post = getPostBySlug(slug);
 
   return (
     <div className="flex w-full h-full flex-col my-24">
@@ -46,6 +46,4 @@ const PostPage = async (props: any) => {
       </div>
     </div>
   );
-};
-
-export default PostPage;
+}
