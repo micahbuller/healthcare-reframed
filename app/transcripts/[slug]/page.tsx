@@ -1,18 +1,17 @@
-import { BlogPost } from "@/types/types";
 import { getPostBySlug, getPostSlugs } from "@/lib/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 
-export async function generateStaticParams() {
-  const slugs = await getPostSlugs();
+export function generateStaticParams() {
+  const slugs = getPostSlugs();
   return slugs.map((slug: string) => ({ slug }));
 }
 
-type PageProps = { params: { slug: string } };
-
-const PostPage = async (props: PageProps | Promise<PageProps>) => {
+const PostPage = async (props: any) => {
+  // Always await props before using params!
+  /* @next-codemod-ignore */
   const { params } = await props;
-  const post: BlogPost = await getPostBySlug(params.slug);
+  const post = getPostBySlug(params.slug);
 
   return (
     <div className="flex w-full h-full flex-col my-24">

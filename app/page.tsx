@@ -15,8 +15,8 @@ const placeholderImages = [
   "https://res.cloudinary.com/mindflip/image/upload/v1751657832/healthcare%20reframed/PhotoGrid/Judson_Howe_Healthcare_Reframed_Kitchen_Interview.jpg",
 ];
 
-export default async function Home() {
-  const allPosts = await getAllPosts(); // Await the result of the asynchronous function
+export default function Home() {
+  const allPosts =  getAllPosts(); 
 
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">

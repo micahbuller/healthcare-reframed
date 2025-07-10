@@ -9,7 +9,7 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory).map((file) => file.replace(/\.mdx$/, ""));
 }
 
-export async function getPostBySlug(slug: string): Promise<BlogPost> {
+export function getPostBySlug(slug: string): BlogPost {
   const fullPath = path.join(postsDirectory, `${slug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
@@ -29,8 +29,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPost> {
   };
 }
 
-export async function getAllPosts() {
+export function getAllPosts() {
   const slugs = getPostSlugs();
-  const posts = await Promise.all(slugs.map((slug) => getPostBySlug(slug)));
+  const posts = slugs.map((slug) => getPostBySlug(slug));
   return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
