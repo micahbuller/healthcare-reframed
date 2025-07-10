@@ -12,7 +12,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "autoprefixer": "^10.4.21",
     "gray-matter": "^4.0.3",
-    "gsap": "npm:@gsap/shockingly@^3.12.7",
+    "gsap": "^3.12.5",
     "next": "15.1.7",
     "next-mdx-remote": "^5.0.0",
     "nice-color-palettes": "^4.0.0",
