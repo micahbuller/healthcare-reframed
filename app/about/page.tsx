@@ -20,7 +20,7 @@ const team = [
 	{
 		name: "Lindsay Hunt",
 		role: "Co-Producer",
-		desc: `Lindsay is a healthcare leader with extensive experience in patient safety, quality improvement, and system transformation, both during a stint at the Institute for Healthcare Improvement (IHI) and as an independent consultant. Her insights into building innovative cross-sector programs, and her extensive connections within the healthcare community have been instrumental in developing this series.`,
+		desc: `Lindsay is a healthcare leader with over 20 years of experience in quality improvement, change management, and system transformation. She has designed and led major initiatives at the Institute for Healthcare Improvement (IHI) and the Harvard Medical School Center for Primary Care. Most recently, she has partnered with rural health systems to develop collaborative strategies that strengthen clinician and staff recruitment and retention. Lindsay contributes her deep experience and thoughtful perspective to help guide the podcast development.`,
 		img: "https://res.cloudinary.com/mindflip/image/upload/v1752111630/healthcare%20reframed/Website/Bios/IMG_9760_iih4h2.jpg", // Replace with your image path
 	},
 	{
