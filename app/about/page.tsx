@@ -14,20 +14,20 @@ const team = [
 	{
 		name: "Micah Buller",
 		role: "Creative Director",
-		desc: `Micah captures the conversations in this series, but he is much more than just “the tech guy.” He is a wellness enthusiast constantly looking to learn more about creating health and well-being in his own life and helping others to do the same. He also has his own podcast series on healthy living in development.`,
+		desc: `Micah is shaping every story, video, and teaser so our mission comes to life on screen. A seasoned software developer and multi-disciplinary storyteller, he built the very website you’re exploring. Micah channels his “jack-of-all-trades” skill set into helping people everywhere live happier, healthier lives.`,
 		img: "https://res.cloudinary.com/mindflip/image/upload/v1752111630/healthcare%20reframed/Website/Bios/IMG_9760_iih4h2.jpg", // Replace with your image path
 	},
 	{
 		name: "Lindsay Hunt",
 		role: "Co-Producer",
 		desc: `Lindsay is a healthcare leader with over 20 years of experience in quality improvement, change management, and system transformation. She has designed and led major initiatives at the Institute for Healthcare Improvement (IHI) and the Harvard Medical School Center for Primary Care. Most recently, she has partnered with rural health systems to develop collaborative strategies that strengthen clinician and staff recruitment and retention. Lindsay contributes her deep experience and thoughtful perspective to help guide the podcast development.`,
-		img: "https://res.cloudinary.com/mindflip/image/upload/v1752111630/healthcare%20reframed/Website/Bios/IMG_9760_iih4h2.jpg", // Replace with your image path
+		img: "https://res.cloudinary.com/mindflip/image/upload/v1752527102/healthcare%20reframed/Website/Bios/Lindsay_awueiu.jpg", // Replace with your image path
 	},
 	{
 		name: "Todd Carpenter",
 		role: "Co-Producer",
 		desc: `Todd is a pediatric intensive care physician, with almost 30 years of experience in clinical medicine and research, and over 100 academic publications. His deep experience as a leader in the high-tech, high-stakes world of intensive care medicine, coupled with personal experiences as a caregiver and patient, fuel his energy for making our healthcare system smarter, safer, and more patient-centered.`,
-		img: "https://res.cloudinary.com/mindflip/image/upload/v1752111630/healthcare%20reframed/Website/Bios/IMG_9760_iih4h2.jpg", // Replace with your image path
+		img: "https://res.cloudinary.com/mindflip/image/upload/v1752527139/healthcare%20reframed/Website/Bios/Todd-2_ywmnrq.jpg", // Replace with your image path
 	},
 ];
 
