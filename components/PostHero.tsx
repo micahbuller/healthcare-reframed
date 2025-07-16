@@ -13,7 +13,7 @@ const ScrollStoryButton: React.FC<{ link: string }> = ({ link }) => {
   return (
     <div className="flex justify-start items-center">
       <Link href={link} target="_blank" rel="noopener noreferrer" className="text-lg font-sans border-2 rounded-full py-4 px-8 border-[#2F2C2C] text-[#2F2C2C] flex items-center space-x-3 transition-all duration-300 hover:bg-[#2F2C2C] hover:text-white">
-        <span>Dive Deeper: Experience the Scroll Story</span>
+        <span>Dive Deeper: Experience the Scrollstory</span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 rotate-45">
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
         </svg>
