@@ -13,6 +13,7 @@ uniform vec3 uColor[5];
 varying vec2 vUv;
 varying vec3 vColor;
 
+
 //	Simplex 3D Noise 
 //	by Ian McEwan, Stefan Gustavson (https://github.com/stegu/webgl-noise)
 //
@@ -129,7 +130,9 @@ void main() {
 
 }`;
 
-const fragmentShader: string = `varying vec2 vUv;
+const fragmentShader: string = `
+precision mediump float;
+varying vec2 vUv;
 varying vec3 vColor;
 
 vec3 colorA = vec3(0.912,0.191,0.652);
