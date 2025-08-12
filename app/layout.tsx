@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next"
 import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html className={`${edu.variable} ${univers.variable} antialiased`} lang="en">
       <body className="flex flex-col">
+        <Analytics />
         <HeaderMenu />
         <main>{children}</main>
         <footer className="flex flex-col bg-[#2F2C2C] text-[#FFFBF7] p-3 md:p-6 py-12 font-sans space-y-6 text-sm">
