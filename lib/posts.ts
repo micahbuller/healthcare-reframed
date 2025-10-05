@@ -21,7 +21,7 @@ export function getPostBySlug(slug: string): BlogPost {
     description: data.description,
     imageUrl: data.imageUrl,
     externalLink: data.externalLink,
-    date: data.date,
+    date: new Date(data.date), // <-- Ensure this is a Date object!
     youtubeLink: data.youtubeLink || "", // Provide default value if missing
     spotifyLink: data.spotifyLink || "", // Provide default value if missing
     appleMusicLink: data.appleMusicLink || "", // Provide default value if missing
