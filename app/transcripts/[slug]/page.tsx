@@ -37,7 +37,6 @@ export default function PostPage({ params }: { params: Promise<{ slug: string }>
         {post.description && (
           <p className="text-md italic text-gray-600">{post.description}</p>
         )}
-        <h2 className="text-2xl font-bold text-[#2F2C2C] underline">Transcript</h2>
         <article className="prose prose-lg max-w-7xl text-[#2F2C2C]">
           <MDXRemote source={post.content} />
         </article>
