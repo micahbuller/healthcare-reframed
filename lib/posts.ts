@@ -15,16 +15,16 @@ export function getPostBySlug(slug: string): BlogPost {
   const { data, content } = matter(fileContents);
 
   return {
-    id: data.id || slug, // Use slug as fallback for id
+    id: data.id || slug,
     slug,
     title: data.title,
     description: data.description,
     imageUrl: data.imageUrl,
     externalLink: data.externalLink,
-    date: new Date(data.date), // <-- Ensure this is a Date object!
-    youtubeLink: data.youtubeLink || "", // Provide default value if missing
-    spotifyLink: data.spotifyLink || "", // Provide default value if missing
-    appleMusicLink: data.appleMusicLink || "", // Provide default value if missing
+    date: data.date ? new Date(data.date) : new Date(), // Fallback to current date if missing
+    youtubeLink: data.youtubeLink || "",
+    spotifyLink: data.spotifyLink || "",
+    appleMusicLink: data.appleMusicLink || "",
     content,
   };
 }
@@ -32,5 +32,28 @@ export function getPostBySlug(slug: string): BlogPost {
 export function getAllPosts() {
   const slugs = getPostSlugs();
   const posts = slugs.map((slug) => getPostBySlug(slug));
-  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  
+  // Debug: Log all posts with their dates
+  console.log('All posts with dates:');
+  posts.forEach(post => {
+    console.log(`${post.slug}: ${post.date} (${post.date instanceof Date ? 'Valid Date' : 'Invalid Date'})`);
+  });
+  
+  const sortedPosts = posts.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    
+    // Handle invalid dates
+    if (isNaN(dateA.getTime())) return 1;
+    if (isNaN(dateB.getTime())) return -1;
+    
+    return dateB.getTime() - dateA.getTime(); // Newest first
+  });
+  
+  console.log('Sorted order:');
+  sortedPosts.forEach((post, index) => {
+    console.log(`${index + 1}. ${post.slug}: ${post.date}`);
+  });
+  
+  return sortedPosts;
 }
