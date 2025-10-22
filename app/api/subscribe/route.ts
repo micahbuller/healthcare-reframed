@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     // Send welcome email (always attempt this)
     const { error: emailError } = await resend.emails.send({
-      from: 'Healthcare Reframed <onboarding@resend.dev>', // Using Resend's default domain
+      from: 'Healthcare Reframed <noreply@healthcarereframed.org>', // Using your verified domain
       to: [email],
       subject: 'Welcome to Healthcare Reframed!',
       html: `
