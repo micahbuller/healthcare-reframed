@@ -60,85 +60,140 @@ export default function AboutPage() {
 	}, []);
 
 	return (
-		<div className="max-w-5xl mx-auto px-6 py-16 font-sans">
-			<h1 className="text-5xl font-bold text-[#2F2C2C] mb-8 tracking-tight uppercase">
-				About us
-			</h1>
-			<div
-				ref={aboutRef}
-				className="prose prose-lg max-w-none text-[#2F2C2C] mb-16"
-			>
-				<p>
-					Health and the delivery of healthcare are topics of importance around
-					the globe. There is little debate that much of the world, and much of
-					the United States, feels that their healthcare system needs to improve
-					and perhaps even to change dramatically. The US healthcare system is our
-					focus, and it has the dubious distinction of generating worse outcomes
-					at greater cost than any peer nation. Why is that? What can we do about
-					it? Why have we all been talking about this for what seems like forever
-					and not made things better yet? If you share our passion for digging
-					into these topics, gathering ideas and insights into how to change the
-					system, and maybe want to stretch your world view a bit, you have come
-					to the right place.
-				</p>
-				<p>
-					We have each been fortunate to have the time and space to talk with each
-					other and to learn and think hard about our experiences and insights
-					into the world of healthcare. We created this site and this podcast
-					series to share our reflective conversations with smart, experienced
-					and insightful healthcare leaders who are passionate about making the
-					world a better place, to amplify their important voices, and to share
-					what we have learned about the issues and ideas that these interviews
-					led us to explore more deeply. For each episode, we have also created a
-					scrollstory to share additional background and context for a selection
-					of the topics discussed during the interviews between Judson and our
-					guests. Working to put together all of this content has been hugely
-					energizing and enlightening for us, and we are eager to share what we
-					have learned with you.
-				</p>
-				<p>
-					The world definitely does not have a shortage of healthcare related
-					information available on the internet. Between all of the podcasts and
-					websites and news articles and magazines and corporate websites and
-					government websites and published medical research, we often seem to be
-					drowning in healthcare related information. And it is not always easy
-					to tell who is creating and curating that content, or how much of the
-					information provided is really designed to generate clicks and views
-					and to sell you things. You will find no ads or corporate sponsors or
-					paywalls on this site, no attempt to monetize your interest. But we do
-					have to keep the lights on, so if you find our efforts here
-					interesting and maybe even useful, please consider making a donation of
-					whatever size seems appropriate to you.
-				</p>
+		<div className="max-w-6xl mx-auto px-6 py-16 font-sans">
+			{/* Header Section - USAL Style */}
+			<div className="mb-24">
+				<h1 className="text-6xl md:text-8xl font-mono text-[#2F2C2C] mb-8 tracking-tight uppercase">
+					ABOUT
+				</h1>
 			</div>
-			<h2 className="text-3xl font-bold text-[#2F2C2C] mb-8 uppercase tracking-wide">
-				Our team
-			</h2>
-			<div ref={teamRef} className="grid gap-10 md:grid-cols-2">
-				{team.map((member) => (
-					<div
-						key={member.name}
-						className="flex flex-col items-center"
-						style={{ position: "relative" }}
-					>
-						<div className="relative w-full flex justify-center">
-							<Image
-								src={member.img}
-								alt={member.name}
-								width={320}
-								height={320}
-								className=" w-64 h-64 object-cover rounded-3xl shadow-lg shadow-[#EC7A5B]"
-							/>
-							<div className="absolute left-4 bottom-4 bg-[#EC7A5B] text-white px-4 py-1 rounded-xl flex flex-col items-start">
-								<span className="font-bold text-lg">{member.name}</span>
-								<span className="text-xs font-mono">{member.role}</span>
+
+			{/* Mission Statement - Clean blocks */}
+			<div ref={aboutRef} className="mb-32">
+				<div className="grid md:grid-cols-3 gap-12">
+					<div className="md:col-span-2">
+						<div className="space-y-8 text-[#2F2C2C]">
+							<div className="border-l-4 border-[#EC7A5B] pl-8">
+								<p className="text-lg font-sans leading-relaxed">
+									Health and the delivery of healthcare are topics of importance around
+									the globe. There is little debate that much of the world, and much of
+									the United States, feels that their healthcare system needs to improve
+									and perhaps even to change dramatically.
+								</p>
+							</div>
+							<div className="border-l-4 border-[#2F2C2C] pl-8">
+								<p className="text-lg font-sans leading-relaxed">
+									The US healthcare system is our focus, and it has the dubious distinction 
+									of generating worse outcomes at greater cost than any peer nation. Why is 
+									that? What can we do about it? Why have we all been talking about this for 
+									what seems like forever and not made things better yet?
+								</p>
+							</div>
+							<div className="border-l-4 border-[#EC7A5B] pl-8">
+								<p className="text-lg font-sans leading-relaxed">
+									If you share our passion for digging into these topics, gathering ideas 
+									and insights into how to change the system, and maybe want to stretch your 
+									world view a bit, you have come to the right place.
+								</p>
 							</div>
 						</div>
-						<p className="mt-8 text-base text-[#2F2C2C] text-left w-full">
-							{member.desc}
-						</p>
 					</div>
-				))}
+					<div className="flex items-center">
+						<div className="border-2 border-[#2F2C2C] p-8">
+							<h3 className="font-mono text-xl uppercase text-[#2F2C2C] mb-4">Our Mission</h3>
+							<p className="font-sans text-sm text-[#2F2C2C] uppercase tracking-wide">
+								Amplifying important voices and sharing insights to transform healthcare
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* Team Section */}
+			<div className="mb-16">
+				<h2 className="text-4xl md:text-6xl font-mono text-[#2F2C2C] mb-16 uppercase tracking-wide">
+					TEAM
+				</h2>
+				<div ref={teamRef} className="space-y-16">
+					{team.map((member, index) => (
+						<div
+							key={member.name}
+							className={`grid md:grid-cols-2 gap-12 items-center ${
+								index % 2 === 1 ? 'md:grid-flow-col-dense' : ''
+							}`}
+						>
+							{/* Image Section */}
+							<div className={`relative ${index % 2 === 1 ? 'md:col-start-2' : ''}`}>
+								<div className="relative">
+									<Image
+										src={member.img}
+										alt={member.name}
+										width={400}
+										height={400}
+										className="w-full h-80 md:h-96 object-cover border-4 border-[#2F2C2C]"
+									/>
+									{/* Name Tag - Angular overlay */}
+									<div className="absolute bottom-0 left-0 bg-[#EC7A5B] text-white p-6 border-4 border-[#2F2C2C] border-b-0 border-l-0">
+										<span className="font-mono text-lg uppercase tracking-wide">{member.name}</span>
+									</div>
+								</div>
+							</div>
+							
+							{/* Content Section */}
+							<div className={`${index % 2 === 1 ? 'md:col-start-1' : ''}`}>
+								<div className="border-2 border-[#2F2C2C] p-8">
+									<div className="mb-6">
+										<span className="font-mono text-sm uppercase text-[#EC7A5B] tracking-widest">{member.role}</span>
+									</div>
+									<p className="font-sans text-base text-[#2F2C2C] leading-relaxed">
+										{member.desc}
+									</p>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+
+			{/* Additional Mission Content */}
+			<div className="mt-32 border-t-4 border-[#2F2C2C] pt-16">
+				<div className="grid md:grid-cols-2 gap-16">
+					<div>
+						<h3 className="font-mono text-2xl uppercase text-[#2F2C2C] mb-8 tracking-wide">
+							Our Approach
+						</h3>
+						<div className="space-y-6">
+							<p className="font-sans text-base text-[#2F2C2C] leading-relaxed">
+								We have each been fortunate to have the time and space to talk with each
+								other and to learn and think hard about our experiences and insights
+								into the world of healthcare. We created this site and this podcast
+								series to share our reflective conversations with smart, experienced
+								and insightful healthcare leaders who are passionate about making the
+								world a better place.
+							</p>
+							<p className="font-sans text-base text-[#2F2C2C] leading-relaxed">
+								For each episode, we have also created a scrollstory to share additional 
+								background and context for a selection of the topics discussed during the 
+								interviews between Judson and our guests.
+							</p>
+						</div>
+					</div>
+					<div>
+						<h3 className="font-mono text-2xl uppercase text-[#2F2C2C] mb-8 tracking-wide">
+							Our Commitment
+						</h3>
+						<div className="border-2 border-[#EC7A5B] p-8">
+							<p className="font-sans text-base text-[#2F2C2C] leading-relaxed mb-4">
+								You will find no ads or corporate sponsors or paywalls on this site, 
+								no attempt to monetize your interest. 
+							</p>
+							<p className="font-sans text-sm text-[#2F2C2C] uppercase tracking-wide">
+								But we do have to keep the lights on, so if you find our efforts here
+								interesting and maybe even useful, please consider making a donation.
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

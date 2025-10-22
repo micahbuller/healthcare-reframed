@@ -1,12 +1,14 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 
 function HeaderMenu() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuItemsRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -64,6 +66,16 @@ function HeaderMenu() {
 
         {/* Links */}
         <div className="hidden md:flex items-center space-x-6">
+          {/* Home Button - Only show on non-home pages */}
+          {pathname !== "/" && (
+            <Link href="/">
+              <div className="group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-lg">
+                <span className="w-2 h-2 border border-white group-hover:border-[#2F2C2C] rounded-full transition-all duration-300"></span>
+                <p className="font-sans uppercase text-md transition-all duration-300">Home</p>
+              </div>
+            </Link>
+          )}
+          
           <Link href="/about">
             <div className="group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-lg">
               <span className="w-2 h-2 border border-white group-hover:border-[#2F2C2C] rounded-full transition-all duration-300"></span> {/* Circle outline */}

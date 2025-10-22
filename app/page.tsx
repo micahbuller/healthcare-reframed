@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import PostHero from "@/components/PostHero";
 import PhotoGrid from "@/components/PhotoGrid";
+import EmailSignup from "@/components/EmailSignup";
 import { getAllPosts } from "@/lib/posts";
 
 const placeholderImages = [
@@ -24,13 +25,8 @@ export default function Home() {
         <Hero />
         <div id="mission" className="relative flex flex-col w-full">
           <div className="flex flex-col mx-auto w-full max-w-7xl p-3 md:p-6">
-            <div className="max-w-2xl py-36 md:py-48">
-              <h3 className="uppercase font-mono md:max-w-none text-3xl text-[#2F2C2C]">
-                <span className="text-[#EC7A5B]">JUDSON HOWE</span> SITS DOWN WITH GLOBAL HEALTHCARE LEADERS TO UNDERSTAND HOW OUR SYSTEMS NEED TO CHANGE.
-              </h3>
-              <p className="uppercase font-sans md:max-w-none text-sm text-[#2F2C2C]">
-                HEAR THE UNFILTERED EXPERIENCES OF THOSE WHO HAVE DEVOTED THEIR LIVES TO YOUR HEALTHCARE SYSTEM. Exploring the failures — and the visionaries striving to fix them.
-              </p>
+            <div className="py-36 md:py-48">
+              <EmailSignup />
             </div>
           </div>
           {/* Image Background */}
