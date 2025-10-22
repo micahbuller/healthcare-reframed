@@ -124,20 +124,6 @@ export default function EmailSignup({ className = '' }: EmailSignupProps) {
             </div>
           </div>
         )}
-
-        {/* Success State */}
-        {isSuccess && (
-          <div className="text-center">
-            <div className="inline-block border-2 border-[#EC7A5B] p-12">
-              <h3 className="text-3xl md:text-4xl font-mono text-[#2F2C2C] mb-4 tracking-wide uppercase">
-                WELCOME TO THE MOVEMENT
-              </h3>
-              <p className="text-lg text-[#2F2C2C] tracking-wide font-sans uppercase">
-                CHECK YOUR EMAIL FOR A WELCOME MESSAGE
-              </p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
