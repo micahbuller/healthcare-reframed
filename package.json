@@ -14,7 +14,7 @@
     "autoprefixer": "^10.4.21",
     "gray-matter": "^4.0.3",
     "gsap": "^3.12.5",
-    "next": "^15.5.6",
+    "next": "15.5.9",
     "next-mdx-remote": "^5.0.0",
     "nice-color-palettes": "^4.0.0",
     "react": "^19.0.0",
