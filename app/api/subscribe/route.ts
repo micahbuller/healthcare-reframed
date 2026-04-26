@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend with error handling
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  
+  if (!apiKey) {
+    throw new Error('RESEND_API_KEY environment variable is not set');
+  }
+  
+  return new Resend(apiKey);
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,6 +27,7 @@ export async function POST(request: NextRequest) {
     // Try to add to audience/contact list first
     let contactError = null;
     try {
+      const resend = getResendClient();
       const { error: audienceError } = await resend.contacts.create({
         email: email,
         firstName: name || '',
@@ -34,6 +44,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Send welcome email (always attempt this)
+    const resend = getResendClient();
     const { error: emailError } = await resend.emails.send({
       from: 'Healthcare Reframed <noreply@healthcarereframed.org>', // Using your verified domain
       to: [email],
