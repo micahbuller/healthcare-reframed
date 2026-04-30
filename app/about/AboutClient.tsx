@@ -246,7 +246,7 @@ export default function AboutClient() {
 				<div className="relative max-w-7xl mx-auto text-center">
 					<p className="font-mono text-xs uppercase tracking-widest text-[#2F2C2C]/60 mb-6">Our Commitment</p>
 					<blockquote className="font-mono text-2xl md:text-4xl uppercase text-[#2F2C2C] max-w-3xl mx-auto leading-tight">
-						&ldquo;No ads. No corporate sponsors. No paywalls. Just honest conversations.&rdquo;
+						No ads. No corporate sponsors. No paywalls. Just honest conversations.
 					</blockquote>
 				</div>
 			</div>
@@ -274,10 +274,9 @@ export default function AboutClient() {
 					<div className="border-2 border-[#EC7A5B] p-8 rounded-3xl flex flex-col justify-center">
 						<h3 className="font-mono text-2xl uppercase mb-6 tracking-wide">Support Us</h3>
 						<p className="font-sans text-base leading-relaxed mb-6 text-[#2F2C2C]/80">
-							If you find our work meaningful, please consider making a donation to help keep
-							these conversations alive.
+						If you find our work valuable and would like to help us keep the conversation going, please consider making a donation. Your contribution is tax deductible.
 						</p>
-						<a href="#" className="font-mono uppercase text-sm px-8 py-4 bg-[#EC7A5B] text-white text-center hover:opacity-80 transition-opacity rounded-full self-start">
+						<a href="https://www.zeffy.com/en-US/donation-form/keep-healthcare-reframed-spreading-going" target="_blank" rel="noopener noreferrer" className="font-mono uppercase text-sm px-8 py-4 bg-[#EC7A5B] text-white text-center hover:opacity-80 transition-opacity rounded-full self-start">
 							Donate
 						</a>
 					</div>

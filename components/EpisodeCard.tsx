@@ -1,12 +1,8 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BlogPost } from "@/types/types";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const TAG_COLORS: Record<string, string> = {
   "System Reform": "bg-[#EC7A5B]/15 text-[#EC7A5B] border-[#EC7A5B]/30",
@@ -40,41 +36,71 @@ function formatDate(date: Date): string {
   });
 }
 
-const EpisodeCard: React.FC<{ episode: BlogPost; index?: number }> = ({ episode, index = 0 }) => {
+const EpisodeCard: React.FC<{ episode: BlogPost; index?: number; variant?: "list" | "grid" }> = ({ episode, variant = "list" }) => {
   const { title, description, imageUrl, slug, date, tags, guestName } = episode;
-  const ref = useRef<HTMLDivElement>(null);
+  const isGrid = variant === "grid";
 
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
+  if (isGrid) {
+    return (
+      <Link href={`/transcripts/${slug}`} className="block group" aria-label={`View episode: ${title}`}>
+        <div className="flex flex-col rounded-2xl border border-[#2F2C2C]/10 hover:border-[#EC7A5B]/40 transition-all duration-300 overflow-hidden">
+          {/* Thumbnail */}
+          <div className="relative w-full aspect-video shrink-0 bg-[#2F2C2C]">
+            {imageUrl && (
+              <Image
+                src={imageUrl}
+                alt={`Thumbnail for ${title}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) calc(100vw - 2rem), (max-width: 1024px) 50vw, 33vw"
+              />
+            )}
+          </div>
 
-    // Set hidden immediately to prevent flash-of-visible-content
-    gsap.set(element, { opacity: 0, y: 16 });
+          {/* Content */}
+          <div className="flex flex-col flex-1 p-4">
+            {/* Type tag + date */}
+            <div className="flex items-center gap-2 mb-2">
+              {tags && tags.length > 0 && (
+                <span
+                  className={`inline-block font-mono text-xs uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${TAG_COLORS[tags[0]] ?? DEFAULT_TAG_COLOR}`}
+                >
+                  {tags[0]}
+                </span>
+              )}
+              {date && (
+                <span className="font-mono text-xs text-[#2F2C2C]/40">{formatDate(date)}</span>
+              )}
+            </div>
 
-    const trigger = ScrollTrigger.create({
-      trigger: element,
-      start: "top bottom",
-      once: true,
-      onEnter: () => {
-        gsap.to(element, {
-          opacity: 1,
-          y: 0,
-          duration: 0.85,
-          ease: "power4.out",
-          delay: Math.min(index * 0.07, 0.28),
-        });
-      },
-    });
+            {/* Title */}
+            <h3 className="font-mono uppercase text-[#2F2C2C] text-sm leading-snug mb-2 group-hover:text-[#EC7A5B] transition-colors duration-200 line-clamp-3">
+              {title}
+            </h3>
 
-    return () => { trigger.kill(); };
-  }, [index]);
+            {/* Guest */}
+            {guestName && (
+              <p className="font-mono text-xs uppercase tracking-widest text-[#2F2C2C]/40 mb-3">
+                {guestName}
+              </p>
+            )}
+
+            {/* Arrow CTA */}
+            <div className="mt-auto flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-[#2F2C2C]/30 group-hover:text-[#EC7A5B] transition-colors duration-200">
+              <span>Listen &amp; Read</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-200">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </Link>
+    );
+  }
 
   return (
     <Link href={`/transcripts/${slug}`} className="block group" aria-label={`View episode: ${title}`}>
-      <div
-        ref={ref}
-        className="flex flex-col md:flex-row gap-5 md:gap-8 p-5 md:p-6 rounded-3xl border border-[#2F2C2C]/10 hover:border-[#EC7A5B]/40 transition-all duration-300 md:h-64 lg:h-72"
-      >
+      <div className="flex flex-col md:flex-row gap-5 md:gap-8 p-5 md:p-6 rounded-3xl border border-[#2F2C2C]/10 hover:border-[#EC7A5B]/40 transition-all duration-300 md:h-64 lg:h-72">
         {/* Thumbnail */}
         <div className="relative w-full aspect-video md:w-auto md:h-full shrink-0 rounded-2xl overflow-hidden bg-[#2F2C2C]">
           {imageUrl && (

@@ -6,9 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "env:sync": "vercel env pull --environment production --yes .env.local && echo 'NEXT_PUBLIC_APP_URL=\"http://localhost:3000\"' >> .env.local"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.105.1",
     "@tailwindcss/postcss": "^4.2.4",
     "@tailwindcss/typography": "^0.5.19",
     "@vercel/analytics": "^2.0.1",

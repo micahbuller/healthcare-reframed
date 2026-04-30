@@ -5,6 +5,7 @@ import "./globals.css";
 import Link from "next/link";
 import HeaderMenu from "@/components/HeaderMenu";
 import EmailSignup from "@/components/EmailSignup";
+import TrackedExternalLink from "@/components/TrackedExternalLink";
 
 const edu = localFont({
   src: "../font/EduDiatypeMono-Regular.otf",
@@ -70,23 +71,23 @@ export default function RootLayout({
               </div>
               <div className="flex flex-col gap-4">
                 <p className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7]/40">Follow Us</p>
-                <div className="flex flex-wrap gap-4">
-                  <Link href="https://www.youtube.com/@healthcarereframed" target="_blank" rel="noopener noreferrer"
-                    className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7]/60 hover:text-[#EC7A5B] transition-colors">
+                <div className="flex flex-wrap gap-3">
+                  <TrackedExternalLink href="https://www.youtube.com/@healthcarereframed" location="footer-social"
+                    className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7] border border-[#FFFBF7]/25 rounded-full px-4 py-2 hover:border-[#EC7A5B] hover:text-[#EC7A5B] transition-colors">
                     YouTube
-                  </Link>
-                  <Link href="https://open.spotify.com/show/healthcarereframed" target="_blank" rel="noopener noreferrer"
-                    className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7]/60 hover:text-[#EC7A5B] transition-colors">
+                  </TrackedExternalLink>
+                  <TrackedExternalLink href="https://open.spotify.com/show/healthcarereframed" location="footer-social"
+                    className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7] border border-[#FFFBF7]/25 rounded-full px-4 py-2 hover:border-[#EC7A5B] hover:text-[#EC7A5B] transition-colors">
                     Spotify
-                  </Link>
-                  <Link href="https://healthcarereframed.substack.com" target="_blank" rel="noopener noreferrer"
-                    className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7]/60 hover:text-[#EC7A5B] transition-colors">
+                  </TrackedExternalLink>
+                  <TrackedExternalLink href="https://healthcarereframed.substack.com" location="footer-social"
+                    className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7] border border-[#FFFBF7]/25 rounded-full px-4 py-2 hover:border-[#EC7A5B] hover:text-[#EC7A5B] transition-colors">
                     Substack
-                  </Link>
-                  <Link href="https://www.instagram.com/healthcarereframed" target="_blank" rel="noopener noreferrer"
-                    className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7]/60 hover:text-[#EC7A5B] transition-colors">
+                  </TrackedExternalLink>
+                  <TrackedExternalLink href="https://www.instagram.com/healthcarereframed" location="footer-social"
+                    className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7] border border-[#FFFBF7]/25 rounded-full px-4 py-2 hover:border-[#EC7A5B] hover:text-[#EC7A5B] transition-colors">
                     Instagram
-                  </Link>
+                  </TrackedExternalLink>
                 </div>
               </div>
             </div>
@@ -107,15 +108,15 @@ export default function RootLayout({
                 <p className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7]/40 mb-5">Content</p>
                 <div className="flex flex-col gap-3">
                   <Link href="/#episodes" className="font-sans text-sm text-[#FFFBF7]/70 hover:text-[#FFFBF7] transition-colors">Episodes</Link>
-                  <Link href="https://healthcarereframed.substack.com" target="_blank" rel="noopener noreferrer"
-                    className="font-sans text-sm text-[#FFFBF7]/70 hover:text-[#FFFBF7] transition-colors">Newsletter</Link>
+                  <TrackedExternalLink href="https://healthcarereframed.substack.com" location="footer-nav"
+                    className="font-sans text-sm text-[#FFFBF7]/70 hover:text-[#FFFBF7] transition-colors">Newsletter</TrackedExternalLink>
                 </div>
               </div>
               <div>
                 <p className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7]/40 mb-5">Get Involved</p>
                 <div className="flex flex-col gap-3">
-                  <Link href="#" className="font-sans text-sm text-[#FFFBF7]/70 hover:text-[#FFFBF7] transition-colors">Donate</Link>
-                  <Link href="#" className="font-sans text-sm text-[#FFFBF7]/70 hover:text-[#FFFBF7] transition-colors">Partner With Us</Link>
+                  <Link href="https://www.zeffy.com/en-US/donation-form/keep-healthcare-reframed-spreading-going" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-[#FFFBF7]/70 hover:text-[#FFFBF7] transition-colors">Donate</Link>
+                  <Link href="/contact" className="font-sans text-sm text-[#FFFBF7]/70 hover:text-[#FFFBF7] transition-colors">Partner With Us</Link>
                 </div>
               </div>
               <div>
@@ -132,10 +133,10 @@ export default function RootLayout({
               <div className="flex gap-6">
                 <span className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7]/30">Privacy Policy</span>
                 <span className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7]/30">Terms</span>
-                <Link href="https://uiio.dev/" rel="noopener noreferrer" target="_blank"
+                <TrackedExternalLink href="https://uiio.dev/" location="footer-credit"
                   className="font-mono text-xs uppercase tracking-widest text-[#FFFBF7]/30 hover:text-[#FFFBF7] transition-colors">
                   Site Credit
-                </Link>
+                </TrackedExternalLink>
               </div>
             </div>
           </div>

@@ -24,6 +24,7 @@ export interface BlogPost {
   appleMusicLink: string;
   // New fields
   tags: string[];
+  episodeType: string;
   guestName: string;
   guestTitle: string;
   guestBio: string;

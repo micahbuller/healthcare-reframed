@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BlogPost, GuestLink } from "@/types/types";
+import TrackedExternalLink from "@/components/TrackedExternalLink";
 
 // -- Platform icons --
 
@@ -122,18 +123,17 @@ const GuestProfile: React.FC<{ name: string; title: string; bio: string; links: 
     {links && links.length > 0 && (
       <div className="flex flex-wrap gap-3">
         {links.map((link) => (
-          <a
+          <TrackedExternalLink
             key={link.label}
             href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
+            location="guest-profile"
             className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-background/60 border border-background/20 rounded-full px-4 py-2 hover:text-[#EC7A5B] hover:border-[#EC7A5B]/40 transition-colors"
           >
             {link.label}
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-2.5 h-2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
             </svg>
-          </a>
+          </TrackedExternalLink>
         ))}
       </div>
     )}
@@ -170,14 +170,13 @@ const ShowNotesTab: React.FC<{ post: BlogPost }> = ({ post }) => (
             <li key={person.label} className="flex items-start gap-2">
               <span className="text-[#2F2C2C]/30 shrink-0 mt-0.5">&bull;</span>
               {person.url ? (
-                <a
+                <TrackedExternalLink
                   href={person.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  location="show-notes-people"
                   className="font-sans text-base text-[#2F2C2C]/80 hover:text-[#EC7A5B] transition-colors underline underline-offset-2"
                 >
                   {person.label}
-                </a>
+                </TrackedExternalLink>
               ) : (
                 <span className="font-sans text-base text-[#2F2C2C]/80">{person.label}</span>
               )}
@@ -196,14 +195,13 @@ const ShowNotesTab: React.FC<{ post: BlogPost }> = ({ post }) => (
             <li key={book.label} className="flex items-start gap-2">
               <span className="text-[#2F2C2C]/30 shrink-0 mt-0.5">&bull;</span>
               {book.url ? (
-                <a
+                <TrackedExternalLink
                   href={book.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  location="show-notes-books"
                   className="font-sans text-base text-[#2F2C2C]/80 hover:text-[#EC7A5B] transition-colors underline underline-offset-2"
                 >
                   {book.label}
-                </a>
+                </TrackedExternalLink>
               ) : (
                 <span className="font-sans text-base text-[#2F2C2C]/80">{book.label}</span>
               )}
@@ -217,17 +215,17 @@ const ShowNotesTab: React.FC<{ post: BlogPost }> = ({ post }) => (
     {post.externalLink && (
       <div>
         <p className="font-mono text-xs uppercase tracking-widest text-[#EC7A5B] mb-4">Go Deeper</p>
-        <a
-          href={post.externalLink}
-          target="_blank"
-          rel="noopener noreferrer"
+        <TrackedExternalLink
+          href={post.externalLink!}
+          episodeTitle={post.title}
+          location="show-notes-scroll-story"
           className="inline-flex items-center gap-3 font-mono uppercase text-sm px-8 py-4 border-2 border-[#2F2C2C] text-[#2F2C2C] rounded-full hover:bg-[#2F2C2C] hover:text-background transition-all duration-300"
         >
           Experience the Scroll Story
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 rotate-45">
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
           </svg>
-        </a>
+        </TrackedExternalLink>
       </div>
     )}
 
@@ -346,37 +344,37 @@ export default function EpisodePageClient({ post, transcript }: { post: BlogPost
         {/* Platform links */}
         <div className="flex flex-wrap gap-3 mb-10">
           {youtubeLink && (
-            <a
+            <TrackedExternalLink
               href={youtubeLink}
-              target="_blank"
-              rel="noopener noreferrer"
+              episodeTitle={title}
+              location="episode-platform-links"
               className="inline-flex items-center gap-2.5 font-mono uppercase text-sm px-5 py-3 bg-[#2F2C2C] text-background rounded-full hover:bg-[#EC7A5B] transition-colors duration-200"
             >
               <YoutubeIcon />
               YouTube
-            </a>
+            </TrackedExternalLink>
           )}
           {spotifyLink && spotifyLink !== "/" && (
-            <a
+            <TrackedExternalLink
               href={spotifyLink}
-              target="_blank"
-              rel="noopener noreferrer"
+              episodeTitle={title}
+              location="episode-platform-links"
               className="inline-flex items-center gap-2.5 font-mono uppercase text-sm px-5 py-3 border-2 border-[#2F2C2C]/20 text-[#2F2C2C] rounded-full hover:border-[#2F2C2C] transition-colors duration-200"
             >
               <SpotifyIcon />
               Spotify
-            </a>
+            </TrackedExternalLink>
           )}
           {appleMusicLink && appleMusicLink !== "/" && (
-            <a
+            <TrackedExternalLink
               href={appleMusicLink}
-              target="_blank"
-              rel="noopener noreferrer"
+              episodeTitle={title}
+              location="episode-platform-links"
               className="inline-flex items-center gap-2.5 font-mono uppercase text-sm px-5 py-3 border-2 border-[#2F2C2C]/20 text-[#2F2C2C] rounded-full hover:border-[#2F2C2C] transition-colors duration-200"
             >
               <AppleIcon />
               Apple Podcasts
-            </a>
+            </TrackedExternalLink>
           )}
         </div>
 

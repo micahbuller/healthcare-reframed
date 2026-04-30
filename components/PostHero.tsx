@@ -6,18 +6,19 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BlogPost } from "@/types/types";
 import PostHeroDescription from "./PostHeroDescription";
+import TrackedExternalLink from "@/components/TrackedExternalLink";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ScrollStoryButton: React.FC<{ link: string }> = ({ link }) => {
+const ScrollStoryButton: React.FC<{ link: string; episodeTitle?: string }> = ({ link, episodeTitle }) => {
   return (
     <div className="flex justify-start items-center">
-      <Link href={link} target="_blank" rel="noopener noreferrer" className="text-lg font-sans border-2 rounded-full py-4 px-8 border-[#2F2C2C] text-[#2F2C2C] flex items-center space-x-3 transition-all duration-300 hover:bg-[#2F2C2C] hover:text-white">
+      <TrackedExternalLink href={link} episodeTitle={episodeTitle} location="post-hero-scroll-story" className="text-lg font-sans border-2 rounded-full py-4 px-8 border-[#2F2C2C] text-[#2F2C2C] flex items-center space-x-3 transition-all duration-300 hover:bg-[#2F2C2C] hover:text-white">
         <span>Dive Deeper: Experience the Scrollstory</span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 rotate-45">
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
         </svg>
-      </Link>
+      </TrackedExternalLink>
     </div>
   );
 };
@@ -63,7 +64,7 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
   return (
     <div ref={ref} className="flex flex-col space-y-6">
       <div  className="flex flex-col md:flex-row w-full space-y-6 md:space-x-6">
-        <Link href={youtubeLink} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
+        <TrackedExternalLink href={youtubeLink} episodeTitle={title} location="post-hero-thumbnail" className="cursor-pointer">
           <div className="relative aspect-video w-full h-auto md:h-64  md:w-auto bg-black rounded-3xl shrink-0 overflow-hidden">
             <div className="absolute flex inset-0 z-10  items-center justify-center">
               {/* Play Button */}
@@ -75,7 +76,7 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
             </div>
             <Image objectFit="cover" width={750} height={400} src={imageUrl} alt={"Image of " + title} />
           </div>
-        </Link>
+        </TrackedExternalLink>
 
         <div className="flex flex-col w-full space-y-6">
           <h3 className="text-2xl md:text-xl lg:text-3xl font-mono uppercase text-[#2F2C2C]">{title}</h3>
@@ -87,7 +88,7 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
               </Link>
             </div>
             <div className="flex flex-row space-x-10">
-              <Link href={youtubeLink} rel="noopener noreferrer" target="_blank">
+              <TrackedExternalLink href={youtubeLink} episodeTitle={title} location="post-hero-platform-icons">
                 <svg width="59" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clipPath="url(#clip0_43_577)">
                     <path
@@ -101,8 +102,8 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
                     </clipPath>
                   </defs>
                 </svg>
-              </Link>
-              <Link href={spotifyLink} rel="noopener noreferrer" target="_blank">
+              </TrackedExternalLink>
+              <TrackedExternalLink href={spotifyLink} episodeTitle={title} location="post-hero-platform-icons">
                 <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clipPath="url(#clip0_95_3)">
                     <path
@@ -116,8 +117,8 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
                     </clipPath>
                   </defs>
                 </svg>
-              </Link>
-              <Link href={appleMusicLink} rel="noopener noreferrer" target="_blank">
+              </TrackedExternalLink>
+              <TrackedExternalLink href={appleMusicLink} episodeTitle={title} location="post-hero-platform-icons">
                 <svg width="41" height="42" viewBox="0 0 41 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fillRule="evenodd"
@@ -126,12 +127,12 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
                     fill="#2F2C2C"
                   />
                 </svg>
-              </Link>
+              </TrackedExternalLink>
             </div>
           </div>
         </div>
       </div>
-      {externalLink && <ScrollStoryButton link={externalLink} />}
+      {externalLink && <ScrollStoryButton link={externalLink} episodeTitle={title} />}
     </div>
   );
 };

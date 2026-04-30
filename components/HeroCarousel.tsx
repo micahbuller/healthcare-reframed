@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import ThreeScene from "./ThreeScene";
 import { BlogPost } from "@/types/types";
+import TrackedExternalLink from "@/components/TrackedExternalLink";
 
 const TOTAL_CARDS = 3;
-const AUTOPLAY_DELAY = 7000;
 
 interface HeroCarouselProps {
   latestEpisode: BlogPost;
@@ -18,10 +18,10 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
   const [activeCard, setActiveCard] = useState(0);
   const [svh, setSvh] = useState<number | null>(null);
   const [carouselH, setCarouselH] = useState<number | null>(null);
+  const [paddingTopDesktop, setPaddingTopDesktop] = useState(0);
   // Stays false during SSR and until after the mount jump — hides the carousel to
   // prevent the SSR scroll-position-0 (clone-last card) from flashing before hydration.
   const [ready, setReady] = useState(false);
-  const autoplayTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isDragging = useRef(false);
   const dragStartX = useRef(0);
   const dragScrollStart = useRef(0);
@@ -38,8 +38,16 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       if (w >= 768) {
         // Desktop: compute 88% of viewport with 620px cap via JS.
         const s = Math.round(h * 0.88);
+        const cH = Math.min(s, 620);
         setSvh(s);
-        setCarouselH(Math.min(s, 620));
+        setCarouselH(cH);
+        // Center the carousel vertically when there's room.
+        // MIN_TOP ensures the carousel never slides under the nav bar:
+        //   ~56px nav bar height + 24px healthy gap = 80px floor.
+        // ~52px accounts for mt-4 spacing + dots/arrows nav height below the carousel.
+        // Any overflow always goes downward (bottom crops, never top crops).
+        const MIN_TOP = 80;
+        setPaddingTopDesktop(Math.max(MIN_TOP, Math.floor((s - cH - 52) / 2)));
       } else {
         // Mobile: reset to null so CSS svh units take over.
         // svh (small viewport height) is locked to the viewport size when the
@@ -47,6 +55,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
         // and the address/tab bar hides, so the card won't jump or glitch.
         setSvh(null);
         setCarouselH(null);
+        setPaddingTopDesktop(0);
       }
     };
     update();
@@ -205,21 +214,6 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
     }
   }, []);
 
-  // ── Autoplay ────────────────────────────────────────────────────────────────
-  const resetAutoplay = useCallback(() => {
-    if (autoplayTimer.current) clearTimeout(autoplayTimer.current);
-    autoplayTimer.current = setTimeout(() => goNext(), AUTOPLAY_DELAY);
-  }, [goNext]);
-
-  useEffect(() => {
-    resetAutoplay();
-    return () => { if (autoplayTimer.current) clearTimeout(autoplayTimer.current); };
-  }, [activeCard, resetAutoplay]);
-
-  const pauseAutoplay = useCallback(() => {
-    if (autoplayTimer.current) clearTimeout(autoplayTimer.current);
-  }, []);
-  const resumeAutoplay = useCallback(() => resetAutoplay(), [resetAutoplay]);
 
   // ── Cross-browser touch handling ────────────────────────────────────────────
   // Intercepts horizontal swipes so Chrome's CSS-snap boundary cannot block the
@@ -236,7 +230,6 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       startScroll = track.scrollLeft;
       isHorizontal = null;
       isJumping.current = true; // block handleSettle while finger is down
-      pauseAutoplay();
     };
     const onTouchMove = (e: TouchEvent) => {
       const dx = e.touches[0].clientX - startX;
@@ -251,20 +244,18 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
     };
     const onTouchEnd = (e: TouchEvent) => {
       isJumping.current = false;
-      if (!isHorizontal) { resumeAutoplay(); return; }
+      if (!isHorizontal) return;
       const dx = startX - e.changedTouches[0].clientX;
       if (Math.abs(dx) > 50) {
-        if (dx > 0) { goNext(); resetAutoplay(); }
-        else { goPrev(); resetAutoplay(); }
+        if (dx > 0) goNext();
+        else goPrev();
       } else {
         scrollToDOM(currentDOMIndex.current);
-        resumeAutoplay();
       }
     };
     const onTouchCancel = () => {
       isJumping.current = false;
       scrollToDOM(currentDOMIndex.current);
-      resumeAutoplay();
     };
 
     track.addEventListener("touchstart", onTouchStart, { passive: true });
@@ -277,7 +268,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       track.removeEventListener("touchend", onTouchEnd);
       track.removeEventListener("touchcancel", onTouchCancel);
     };
-  }, [goNext, goPrev, pauseAutoplay, resumeAutoplay, resetAutoplay, scrollToDOM]);
+  }, [goNext, goPrev, scrollToDOM]);
 
   // ── Desktop mouse drag ──────────────────────────────────────────────────────
   const onMouseDown = (e: React.MouseEvent) => {
@@ -285,7 +276,6 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
     dragMoved.current = false;
     dragStartX.current = e.pageX;
     dragScrollStart.current = trackRef.current?.scrollLeft ?? 0;
-    pauseAutoplay();
   };
   const onMouseMove = (e: React.MouseEvent) => {
     if (!isDragging.current || !trackRef.current) return;
@@ -310,7 +300,6 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       else goTo(closest - 1);
     }
     if (dragMoved.current) e.stopPropagation();
-    resumeAutoplay();
   };
 
   const { title, description, imageUrl, youtubeLink, spotifyLink, appleMusicLink, slug } = latestEpisode;
@@ -347,10 +336,10 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
           <h2 className="font-mono uppercase text-[#FFFBF7] text-base leading-tight mb-2">{title}</h2>
           <p className="font-sans text-[#FFFBF7]/70 text-sm mb-4 line-clamp-3">{description}</p>
           <div className="flex flex-wrap gap-2 mt-auto">
-            <Link href={youtubeLink} target="_blank" rel="noopener noreferrer"
+            <TrackedExternalLink href={youtubeLink} episodeTitle={title} location="hero-carousel-mobile"
               className="font-mono uppercase text-sm px-5 py-2.5 bg-[#FFFBF7] text-[#2F2C2C] hover:opacity-80 transition-opacity rounded-full">
               Watch on YouTube
-            </Link>
+            </TrackedExternalLink>
             <Link href={`/transcripts/${slug}`}
               className="font-mono uppercase text-sm px-5 py-2.5 border border-[#FFFBF7]/40 text-[#FFFBF7] hover:border-[#FFFBF7] transition-colors rounded-full">
               Read Transcript
@@ -374,10 +363,10 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
           <h2 className="font-mono uppercase text-[#FFFBF7] text-2xl lg:text-3xl leading-tight mb-4">{title}</h2>
           <p className="font-sans text-[#FFFBF7]/70 text-sm lg:text-base mb-8 line-clamp-4">{description}</p>
           <div className="flex flex-wrap gap-3 items-center mb-5">
-            <Link href={youtubeLink} target="_blank" rel="noopener noreferrer"
+            <TrackedExternalLink href={youtubeLink} episodeTitle={title} location="hero-carousel-desktop"
               className="font-mono uppercase text-sm px-6 py-3 bg-[#FFFBF7] text-[#2F2C2C] hover:opacity-80 transition-opacity rounded-full">
               Watch on YouTube
-            </Link>
+            </TrackedExternalLink>
             <Link href={`/transcripts/${slug}`}
               className="font-mono uppercase text-sm px-6 py-3 border border-[#FFFBF7]/40 text-[#FFFBF7] hover:border-[#FFFBF7] transition-colors rounded-full">
               Read Transcript
@@ -385,16 +374,16 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
           </div>
           <div className="flex items-center space-x-5">
             {spotifyLink && (
-              <Link href={spotifyLink} target="_blank" rel="noopener noreferrer"
+              <TrackedExternalLink href={spotifyLink} episodeTitle={title} location="hero-carousel-desktop"
                 className="font-mono text-xs uppercase text-[#FFFBF7]/70 tracking-widest hover:text-[#FFFBF7] transition-colors">
                 Spotify
-              </Link>
+              </TrackedExternalLink>
             )}
             {appleMusicLink && (
-              <Link href={appleMusicLink} target="_blank" rel="noopener noreferrer"
+              <TrackedExternalLink href={appleMusicLink} episodeTitle={title} location="hero-carousel-desktop"
                 className="font-mono text-xs uppercase text-[#FFFBF7]/70 tracking-widest hover:text-[#FFFBF7] transition-colors">
                 Apple Podcasts
-              </Link>
+              </TrackedExternalLink>
             )}
           </div>
         </div>
@@ -431,10 +420,10 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
           Healthcare Reframed is a 501(c)3 nonprofit. No ads, corporate sponsors, or paywalls.
         </p>
         <p className="font-sans text-[#2F2C2C]/70 text-sm mb-6 md:mb-12 max-w-lg leading-relaxed">
-          If you find our work meaningful, please consider making a donation to keep these conversations alive.
+          If you find our work valuable and would like to help us keep the conversation going, please consider making a donation. Your contribution is tax deductible.
         </p>
         <div className="flex flex-row gap-3">
-          <a href="#"
+          <a href="https://www.zeffy.com/en-US/donation-form/keep-healthcare-reframed-spreading-going" target="_blank" rel="noopener noreferrer"
             className="font-mono uppercase text-xs md:text-sm px-5 md:px-8 py-3 md:py-4 bg-[#2F2C2C] text-[#FFFBF7] text-center hover:opacity-80 transition-opacity rounded-full">
             Donate
           </a>
@@ -449,10 +438,8 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
 
   return (
     <div
-      className="relative w-full bg-[#FFFBF7] flex flex-col items-center pt-28 pb-6 md:pt-0 md:pb-0 md:justify-center"
-      style={{ height: svh ? `${svh}px` : "100svh" }}
-      onMouseEnter={pauseAutoplay}
-      onMouseLeave={resumeAutoplay}
+      className="relative w-full bg-[#FFFBF7] flex flex-col items-center pt-28 pb-6 md:pt-0 md:pb-0"
+      style={{ minHeight: svh ? `${svh}px` : "100svh", paddingTop: svh ? `${paddingTopDesktop}px` : undefined }}
     >
       {/* ── Carousel viewport ── hidden until mount jump fires (prevents SSR clone-last flash) */}
       <div
@@ -484,7 +471,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
           {Array.from({ length: TOTAL_CARDS }).map((_, i) => (
             <button
               key={i}
-              onClick={() => { goTo(i); resetAutoplay(); }}
+              onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}
               className={`rounded-full transition-all duration-300 ${
                 activeCard === i
@@ -497,7 +484,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
         {/* Prev / Next arrows */}
         <div className="flex items-center space-x-2">
           <button
-            onClick={() => { goPrev(); resetAutoplay(); }}
+            onClick={() => goPrev()}
             aria-label="Previous slide"
             className="w-9 h-9 rounded-full border border-[#2F2C2C]/30 flex items-center justify-center hover:border-[#2F2C2C] hover:bg-[#2F2C2C]/5 transition-all duration-200"
           >
@@ -506,7 +493,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
             </svg>
           </button>
           <button
-            onClick={() => { goNext(); resetAutoplay(); }}
+            onClick={() => goNext()}
             aria-label="Next slide"
             className="w-9 h-9 rounded-full border border-[#2F2C2C]/30 flex items-center justify-center hover:border-[#2F2C2C] hover:bg-[#2F2C2C]/5 transition-all duration-200"
           >

@@ -8,54 +8,43 @@ function HeaderMenu() {
   const menuRef = useRef<HTMLDivElement>(null);
   const menuItemsRef = useRef<HTMLDivElement>(null);
 
+  const closeMenu = () => setIsMobileMenuOpen(false);
+
   useEffect(() => {
     if (isMobileMenuOpen) {
-      // Animate menu sliding in from the left
+      // Show, then slide in
+      gsap.set(menuRef.current, { display: "flex" });
       gsap.fromTo(
         menuRef.current,
         { x: "-100%", opacity: 0 },
         { x: "0%", opacity: 1, duration: 0.5, ease: "power2.out" }
       );
-
-      // Animate menu items sliding in one by one
       if (menuItemsRef.current?.children) {
         gsap.fromTo(
-          Array.from(menuItemsRef.current.children), // Convert HTMLCollection to an array
+          Array.from(menuItemsRef.current.children),
           { x: "-100%", opacity: 0 },
-          {
-            x: "0%",
-            opacity: 1,
-            duration: 0.5,
-            ease: "power2.out",
-            stagger: 0.2,
-          }
+          { x: "0%", opacity: 1, duration: 0.5, ease: "power2.out", stagger: 0.15 }
         );
       }
     } else {
-      // Animate menu sliding out to the left
-      gsap.to(menuRef.current, { x: "-100%", opacity: 0, duration: 0.5, ease: "power2.in" });
-
-      // Animate menu items sliding out one by one
+      // Slide items out first, then slide the panel out and hide
       if (menuItemsRef.current?.children) {
-        gsap.to(
-          Array.from(menuItemsRef.current.children), // Convert HTMLCollection to an array
-          {
-            x: "-100%",
-            opacity: 0,
-            duration: 0.5,
-            ease: "power2.in",
-            stagger: 0.2,
-          }
-        );
+        gsap.to(Array.from(menuItemsRef.current.children), {
+          x: "-100%", opacity: 0, duration: 0.25, ease: "power2.in", stagger: 0.07,
+        });
       }
+      gsap.to(menuRef.current, {
+        x: "-100%", opacity: 0, duration: 0.4, ease: "power2.in", delay: 0.1,
+        onComplete: () => gsap.set(menuRef.current, { display: "none" }),
+      });
     }
   }, [isMobileMenuOpen]);
 
   return (
     <>
-      {/* Desktop Header */}
+      {/* Header bar — always visible */}
       <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4">
-        {/* Logo / Home — always visible */}
+        {/* Home */}
         <div className="flex items-center">
           <Link href="/">
             <div className="group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-full">
@@ -65,8 +54,14 @@ function HeaderMenu() {
           </Link>
         </div>
 
-        {/* Links */}
+        {/* Desktop links */}
         <div className="hidden md:flex items-center space-x-6">
+          <Link href="/episodes">
+            <div className="group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-full">
+              <span className="w-2 h-2 border border-white group-hover:border-[#2F2C2C] rounded-full transition-all duration-300"></span>
+              <p className="font-sans uppercase text-md transition-all duration-300">Episodes</p>
+            </div>
+          </Link>
           <Link href="/about">
             <div className="group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-full">
               <span className="w-2 h-2 border border-white group-hover:border-[#2F2C2C] rounded-full transition-all duration-300"></span>
@@ -79,37 +74,42 @@ function HeaderMenu() {
               <p className="font-sans uppercase text-md transition-all duration-300">Contact</p>
             </div>
           </Link>
+          <a href="https://www.zeffy.com/en-US/donation-form/keep-healthcare-reframed-spreading-going" target="_blank" rel="noopener noreferrer">
+            <div className="bg-[#EC7A5B] text-[#2F2C2C] flex flex-row items-center hover:opacity-90 transition-all duration-300 px-8 py-[2px] rounded-full">
+              <p className="font-sans uppercase text-md">Donate</p>
+            </div>
+          </a>
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile toggle */}
         <button
           className="md:hidden group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-full"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
         >
           {isMobileMenuOpen ? "✕" : "☰"}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile drawer — display controlled entirely by GSAP, not React class toggling */}
       <div
         ref={menuRef}
-        className={`fixed md:hidden top-0 left-0 w-full h-full z-40 bg-[#2F2C2C] bg-opacity-25 backdrop-blur-xl py-4 px-6 ${
-          isMobileMenuOpen ? "flex" : "hidden"
-        }`}
+        className="fixed md:hidden top-0 left-0 w-full h-full z-40 bg-[#2F2C2C] bg-opacity-25 backdrop-blur-xl py-4 px-6"
+        style={{ display: "none" }}
       >
         <div ref={menuItemsRef} className="flex flex-col justify-start space-y-6 mt-24">
-          <Link href="/">
-            <p className="font-sans uppercase text-6xl text-white hover:text-[#2F2C2C] transition-all duration-300">Home</p>
+          <Link href="/episodes" onClick={closeMenu}>
+            <p className="font-sans uppercase text-6xl text-white hover:text-[#EC7A5B] transition-all duration-300">Episodes</p>
           </Link>
-
-          <Link href="/about">
-            <p className="font-sans uppercase text-6xl text-white hover:text-[#2F2C2C] transition-all duration-300">About</p>
+          <Link href="/about" onClick={closeMenu}>
+            <p className="font-sans uppercase text-6xl text-white hover:text-[#EC7A5B] transition-all duration-300">About</p>
           </Link>
-          
-          <Link href="/contact">
-            <p className="font-sans uppercase text-6xl text-white hover:text-[#2F2C2C] transition-all duration-300">Contact</p>
+          <Link href="/contact" onClick={closeMenu}>
+            <p className="font-sans uppercase text-6xl text-white hover:text-[#EC7A5B] transition-all duration-300">Contact</p>
           </Link>
-          
+          <a href="https://www.zeffy.com/en-US/donation-form/keep-healthcare-reframed-spreading-going" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
+            <p className="font-sans uppercase text-6xl text-[#EC7A5B] hover:opacity-80 transition-all duration-300">Donate</p>
+          </a>
         </div>
       </div>
     </>

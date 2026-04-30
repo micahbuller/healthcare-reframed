@@ -26,6 +26,7 @@ export function getPostBySlug(slug: string): BlogPost {
     spotifyLink: data.spotifyLink || "",
     appleMusicLink: data.appleMusicLink || "",
     tags: data.tags || [],
+    episodeType: data.episodeType || "Full Episode",
     guestName: data.guestName || "",
     guestTitle: data.guestTitle || "",
     guestBio: data.guestBio || "",
