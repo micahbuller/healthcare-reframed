@@ -19,8 +19,30 @@ const univers = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Healthcare Reframed Podcast",
-  description: "Ask the right question.",
+  title: {
+    default: "Healthcare Reframed",
+    template: "%s | Healthcare Reframed",
+  },
+  description:
+    "Honest conversations with healthcare leaders, innovators, and trailblazers about building a stronger, more humane healthcare system.",
+  metadataBase: new URL("https://healthcarereframed.org"),
+  openGraph: {
+    type: "website",
+    siteName: "Healthcare Reframed",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Healthcare Reframed — honest conversations that change how we think about healthcare",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@healthcarereframd",
+  },
 };
 
 export default function RootLayout({

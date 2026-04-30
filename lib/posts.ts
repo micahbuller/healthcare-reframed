@@ -20,11 +20,20 @@ export function getPostBySlug(slug: string): BlogPost {
     title: data.title,
     description: data.description,
     imageUrl: data.imageUrl,
-    externalLink: data.externalLink,
-    date: data.date ? new Date(data.date) : new Date(), // Fallback to current date if missing
+    externalLink: data.externalLink || "",
+    date: data.date ? new Date(data.date) : new Date(),
     youtubeLink: data.youtubeLink || "",
     spotifyLink: data.spotifyLink || "",
     appleMusicLink: data.appleMusicLink || "",
+    tags: data.tags || [],
+    guestName: data.guestName || "",
+    guestTitle: data.guestTitle || "",
+    guestBio: data.guestBio || "",
+    guestLinks: data.guestLinks || [],
+    showNotes: data.showNotes || "",
+    timestamps: data.timestamps || [],
+    peopleMentioned: data.peopleMentioned || [],
+    booksMentioned: data.booksMentioned || [],
     content,
   };
 }

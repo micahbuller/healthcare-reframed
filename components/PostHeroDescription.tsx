@@ -5,7 +5,7 @@ const PostHeroDescription: React.FC<{ description: string }> = ({ description })
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="text-md font-sans uppercase text-[#2F2C2C]">
+    <div className="text-base font-sans text-[#2F2C2C]/80 leading-relaxed">
       <p className={isExpanded ? "line-clamp-none" : "line-clamp-2"}>{description}</p>
       <button
         className="mt-2 text-[#EC7A5B] font-mono uppercase text-sm hover:underline transition-all duration-300"

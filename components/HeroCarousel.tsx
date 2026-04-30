@@ -315,7 +315,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
         <h1 className="uppercase font-mono max-w-xl md:max-w-2xl text-xl sm:text-3xl md:text-4xl text-center leading-tight mb-3 md:mb-6">
           Rethinking the System,<br />One Conversation at a Time
         </h1>
-        <p className="font-sans text-xs sm:text-sm md:text-base text-center max-w-md leading-relaxed">
+        <p className="font-sans text-sm md:text-base text-center max-w-md leading-relaxed">
           A nonprofit podcast amplifying voices of change to build a stronger,
           more humane healthcare system.
         </p>
@@ -328,7 +328,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       {/* Mobile — thumbnail with margin on all sides, 16:9, rounded */}
       <div className="flex flex-col h-full md:hidden overflow-y-auto p-4 gap-4">
         <div className="relative w-full rounded-2xl overflow-hidden shrink-0" style={{ aspectRatio: "16/9" }}>
-          <Image src={imageUrl} alt={title} fill style={{ objectFit: "cover" }} />
+          <Image src={imageUrl} alt={title} fill priority sizes="100vw" style={{ objectFit: "cover" }} />
         </div>
         <div className="flex flex-col flex-1 min-h-0 pb-4">
           <span className="font-mono text-xs uppercase text-[#FFFBF7]/60 tracking-widest mb-2">Latest Episode</span>
@@ -336,11 +336,11 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
           <p className="font-sans text-[#FFFBF7]/70 text-sm mb-4 line-clamp-3">{description}</p>
           <div className="flex flex-wrap gap-2 mt-auto">
             <Link href={youtubeLink} target="_blank" rel="noopener noreferrer"
-              className="font-mono uppercase text-xs px-5 py-2.5 bg-[#FFFBF7] text-[#2F2C2C] hover:opacity-80 transition-opacity rounded-full">
+              className="font-mono uppercase text-sm px-5 py-2.5 bg-[#FFFBF7] text-[#2F2C2C] hover:opacity-80 transition-opacity rounded-full">
               Watch on YouTube
             </Link>
             <Link href={`/transcripts/${slug}`}
-              className="font-mono uppercase text-xs px-5 py-2.5 border border-[#FFFBF7]/40 text-[#FFFBF7] hover:border-[#FFFBF7] transition-colors rounded-full">
+              className="font-mono uppercase text-sm px-5 py-2.5 border border-[#FFFBF7]/40 text-[#FFFBF7] hover:border-[#FFFBF7] transition-colors rounded-full">
               Read Transcript
             </Link>
           </div>
@@ -350,11 +350,11 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       <div className="hidden md:block relative h-full">
         {/* Image: right side, padded evenly from all card edges, same corner radius as card */}
         <div className="absolute top-4 right-4 bottom-4 left-[42%] rounded-3xl overflow-hidden">
-          <Image src={imageUrl} alt={title} fill style={{ objectFit: "cover", objectPosition: "right center" }} sizes="50vw" />
+          <Image src={imageUrl} alt={title} fill priority sizes="50vw" style={{ objectFit: "cover", objectPosition: "right center" }} />
         </div>
         {/* Gradient overlay: solid card color on left → transparent on right */}
         <div className="absolute top-4 right-4 bottom-4 left-[42%] rounded-3xl overflow-hidden pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#2F2C2C] via-[#2F2C2C]/70 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#2F2C2C] via-[#2F2C2C]/70 to-transparent" />
         </div>
         {/* Text content: left 55% of card, z-index above image */}
         <div className="absolute top-0 left-0 bottom-0 w-[58%] flex flex-col justify-center p-10 lg:p-14 z-10">
@@ -374,13 +374,13 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
           <div className="flex items-center space-x-5">
             {spotifyLink && (
               <Link href={spotifyLink} target="_blank" rel="noopener noreferrer"
-                className="font-mono text-xs uppercase text-[#FFFBF7]/50 tracking-widest hover:text-[#FFFBF7] transition-colors">
+                className="font-mono text-xs uppercase text-[#FFFBF7]/70 tracking-widest hover:text-[#FFFBF7] transition-colors">
                 Spotify
               </Link>
             )}
             {appleMusicLink && (
               <Link href={appleMusicLink} target="_blank" rel="noopener noreferrer"
-                className="font-mono text-xs uppercase text-[#FFFBF7]/50 tracking-widest hover:text-[#FFFBF7] transition-colors">
+                className="font-mono text-xs uppercase text-[#FFFBF7]/70 tracking-widest hover:text-[#FFFBF7] transition-colors">
                 Apple Podcasts
               </Link>
             )}
@@ -408,7 +408,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
         </div>
       )}
       {/* Coral gradient overlay: solid left (text area) → transparent right (reveals photos) */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#EC7A5B] from-30% via-[#EC7A5B]/85 via-60% to-[#EC7A5B]/10" />
+      <div className="absolute inset-0 bg-linear-to-r from-[#EC7A5B] from-30% via-[#EC7A5B]/85 via-60% to-[#EC7A5B]/10" />
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-center h-full p-6 md:p-14">
         <span className="font-mono text-xs uppercase text-[#2F2C2C]/70 tracking-widest mb-4 md:mb-8">Support the Mission</span>
@@ -418,7 +418,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
         <p className="font-sans text-[#2F2C2C]/80 text-sm md:text-lg mb-3 md:mb-4 max-w-lg leading-relaxed">
           Healthcare Reframed is a 501(c)3 nonprofit. No ads, corporate sponsors, or paywalls.
         </p>
-        <p className="font-sans text-[#2F2C2C]/60 text-xs md:text-sm mb-6 md:mb-12 max-w-lg leading-relaxed">
+        <p className="font-sans text-[#2F2C2C]/70 text-sm mb-6 md:mb-12 max-w-lg leading-relaxed">
           If you find our work meaningful, please consider making a donation to keep these conversations alive.
         </p>
         <div className="flex flex-row gap-3">

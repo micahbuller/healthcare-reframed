@@ -1,17 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/*
+ * @theme inline — values reference next/font CSS vars injected at runtime.
+ * The `inline` keyword prevents Tailwind wrapping them in a second var().
+ */
+@theme inline {
+  /* Font families (mapped from next/font/local variables) */
+  --font-sans: var(--font-edu);
+  --font-mono: var(--font-univers);
+
+  /* Brand colors */
+  --color-background: #FFFBF7;
+  --color-foreground: #171717;
+}
 
 :root {
   --background: #FFFBF7;
   --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #FFFBF7;
-    --foreground: #FFFBF7;
-  }
 }
 
 html,
