@@ -14,9 +14,41 @@
   }
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Carousel track — padding controls how much of adjacent cards peek in.
+   scroll-padding-left must equal padding-left so snap aligns correctly. */
+.carousel-track {
+  padding-left: 16px;
+  padding-right: 16px;
+  scroll-padding-left: 16px;
+  gap: 8px;
+}
+@media (min-width: 768px) {
+  .carousel-track {
+    padding-left: 152px;
+    padding-right: 152px;
+    scroll-padding-left: 152px;
+    gap: 20px;
+  }
 }
 

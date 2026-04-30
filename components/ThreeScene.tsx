@@ -147,22 +147,34 @@ void main() {
   
 }`;
 
-const ThreeScene: React.FC = () => {
+interface ThreeSceneProps {
+  className?: string;
+}
+
+const ThreeScene: React.FC<ThreeSceneProps> = ({ className = "" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
     if (WebGL.isWebGL2Available()) {
-      // Initiate function or other initializations here
       if (typeof window !== "undefined") {
+        const getSize = () => ({
+          width: container.offsetWidth || window.innerWidth,
+          height: container.offsetHeight || window.innerHeight,
+        });
+        const { width: initW, height: initH } = getSize();
+
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, initW / initH, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
         let time: number = 0.01;
+        let animFrameId: number;
 
         renderer.setClearColor(0xffffff, 0);
-
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        containerRef.current?.appendChild(renderer.domElement);
+        renderer.setSize(initW, initH);
+        container.appendChild(renderer.domElement);
         camera.position.set(0, 0, 0.2);
 
         // Create Plane
@@ -190,30 +202,39 @@ const ThreeScene: React.FC = () => {
 
         // Resize Handling
         const handleResize = () => {
-          const width = window.innerWidth;
-          const height = window.innerHeight;
+          const { width, height } = getSize();
           camera.aspect = width / height;
           camera.updateProjectionMatrix();
           renderer.setSize(width, height);
         };
 
-        window.addEventListener("resize", handleResize);
+        const resizeObserver = new ResizeObserver(handleResize);
+        resizeObserver.observe(container);
 
         // Animation Loop
         function animate() {
           time += 0.00005;
           material.uniforms.time.value = time;
-          requestAnimationFrame(animate);
+          animFrameId = requestAnimationFrame(animate);
           renderer.render(scene, camera);
         }
         animate();
 
-         // Apply Fade-in Effect with GSAP
-         gsap.fromTo(
-          containerRef.current,
+        // Apply Fade-in Effect with GSAP
+        gsap.fromTo(
+          container,
           { opacity: 0 },
           { opacity: 1, duration: 2, delay: 0.5 }
         );
+
+        return () => {
+          resizeObserver.disconnect();
+          cancelAnimationFrame(animFrameId);
+          renderer.dispose();
+          if (container.contains(renderer.domElement)) {
+            container.removeChild(renderer.domElement);
+          }
+        };
       }
     } else {
       const warning = WebGL.getWebGL2ErrorMessage();
@@ -221,7 +242,7 @@ const ThreeScene: React.FC = () => {
     }
   }, []);
 
-  return <div ref={containerRef} />;
+  return <div ref={containerRef} className={className} />;
 };
 
 export default ThreeScene;

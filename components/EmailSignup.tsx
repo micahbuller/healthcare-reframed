@@ -4,9 +4,16 @@ import { useState } from 'react';
 
 interface EmailSignupProps {
   className?: string;
+  theme?: 'light' | 'dark';
+  compact?: boolean;
 }
 
-export default function EmailSignup({ className = '' }: EmailSignupProps) {
+export default function EmailSignup({ className = '', theme = 'light', compact = false }: EmailSignupProps) {
+  const dark = theme === 'dark';
+  const textColor = dark ? 'text-[#FFFBF7]' : 'text-[#2F2C2C]';
+  const borderColor = dark ? 'border-[#FFFBF7]/30 focus:border-[#EC7A5B]' : 'border-[#2F2C2C] focus:border-[#EC7A5B]';
+  const placeholderColor = dark ? 'placeholder-[#FFFBF7]/40' : 'placeholder-[#2F2C2C]/60';
+  const mutedColor = dark ? 'text-[#FFFBF7]/40' : 'text-[#2F2C2C]/60';
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -21,14 +28,10 @@ export default function EmailSignup({ className = '' }: EmailSignupProps) {
     try {
       const response = await fetch('/api/subscribe', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, name }),
       });
-
       const data = await response.json();
-
       if (response.ok) {
         setIsSuccess(true);
         setMessage(data.message);
@@ -46,13 +49,56 @@ export default function EmailSignup({ className = '' }: EmailSignupProps) {
     }
   };
 
+  // ── Compact (footer) pill-style ──────────────────────────────────────────
+  if (compact) {
+    if (isSuccess) {
+      return (
+        <p className={`text-sm font-mono tracking-wide ${textColor}/70`}>
+          Thanks! You&apos;re subscribed.
+        </p>
+      );
+    }
+    return (
+      <div className={className}>
+        {message && (
+          <p className={`mb-3 text-xs font-mono ${isSuccess ? 'text-green-400' : 'text-red-400'}`}>
+            {message}
+          </p>
+        )}
+        <form onSubmit={handleSubmit}>
+          <div className={`flex items-center rounded-full p-1.5 ${dark ? 'bg-white/10 border border-white/20' : 'bg-[#2F2C2C]/5 border border-[#2F2C2C]/20'}`}>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your email address"
+              required
+              className={`flex-1 min-w-0 bg-transparent px-4 py-2 text-sm font-mono focus:outline-none ${textColor} ${placeholderColor}`}
+            />
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="shrink-0 bg-[#EC7A5B] text-white font-mono uppercase text-xs px-5 py-2.5 rounded-full hover:opacity-80 disabled:opacity-50 transition-opacity"
+            >
+              {isLoading ? '...' : 'Subscribe'}
+            </button>
+          </div>
+        </form>
+        <p className={`mt-3 text-xs uppercase tracking-widest font-sans ${mutedColor}`}>
+          We respect your privacy. Unsubscribe at any time.
+        </p>
+      </div>
+    );
+  }
+
+  // ── Full (non-compact) form ──────────────────────────────────────────────
   return (
     <div className={`${className}`}>
       <div className="max-w-4xl mx-auto">
-        {/* Main Heading - USAL inspired minimal style */}
+        {/* Main Heading */}
         <div className="text-center mb-16">
           <div className="max-w-2xl mx-auto">
-            <p className="text-lg md:text-xl text-[#2F2C2C] mb-4 font-sans tracking-wide uppercase">
+            <p className={`text-lg md:text-xl mb-4 font-sans tracking-wide uppercase ${textColor}`}>
               SUBSCRIBE TO RECEIVE FIRST ACCESS TO NEW INTERVIEWS, INSIGHTS & OPPORTUNITIES TO TRANSFORM HEALTHCARE
             </p>
           </div>
@@ -60,25 +106,22 @@ export default function EmailSignup({ className = '' }: EmailSignupProps) {
 
         {/* Message Display */}
         {message && (
-          <div className={`mb-8 p-6 text-center font-sans tracking-wide uppercase ${
-            isSuccess 
-              ? 'bg-green-50 text-green-800 border-2 border-green-200' 
+          <div className={`mb-8 p-6 text-center font-sans tracking-wide uppercase rounded-2xl ${
+            isSuccess
+              ? 'bg-green-50 text-green-800 border-2 border-green-200'
               : 'bg-red-50 text-red-800 border-2 border-red-200'
           }`}>
             {message}
           </div>
         )}
 
-        {/* Form - Clean minimal design */}
+        {/* Form */}
         {!isSuccess && (
           <div className="text-center">
             <form onSubmit={handleSubmit} className="inline-block">
               <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
-                {/* Email Input */}
                 <div className="relative">
-                  <label htmlFor="email" className="sr-only">
-                    Email Address
-                  </label>
+                  <label htmlFor="email" className="sr-only">Email Address</label>
                   <input
                     type="email"
                     id="email"
@@ -86,41 +129,31 @@ export default function EmailSignup({ className = '' }: EmailSignupProps) {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="YOUR EMAIL"
                     required
-                    className="w-80 md:w-96 px-6 py-4 bg-transparent border-2 border-[#2F2C2C] text-[#2F2C2C] placeholder-[#2F2C2C]/60 font-mono tracking-wider text-sm uppercase focus:outline-none focus:border-[#EC7A5B] transition-colors duration-200"
+                    className={`w-80 md:w-96 px-6 py-4 bg-transparent border-2 font-mono tracking-wider text-sm uppercase focus:outline-none transition-colors duration-200 rounded-full ${textColor} ${borderColor} ${placeholderColor}`}
                   />
                 </div>
-                
-                {/* Name Input */}
                 <div className="relative">
-                  <label htmlFor="name" className="sr-only">
-                    First Name
-                  </label>
+                  <label htmlFor="name" className="sr-only">First Name</label>
                   <input
                     type="text"
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="NAME (OPTIONAL)"
-                    className="w-80 md:w-60 px-6 py-4 bg-transparent border-2 border-[#2F2C2C] text-[#2F2C2C] placeholder-[#2F2C2C]/60 font-mono tracking-wider text-sm uppercase focus:outline-none focus:border-[#EC7A5B] transition-colors duration-200"
+                    className={`w-80 md:w-60 px-6 py-4 bg-transparent border-2 font-mono tracking-wider text-sm uppercase focus:outline-none transition-colors duration-200 rounded-full ${textColor} ${borderColor} ${placeholderColor}`}
                   />
                 </div>
-                
-                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-80 md:w-auto px-8 py-4 bg-[#EC7A5B] hover:bg-[#2F2C2C] disabled:bg-gray-400 text-white font-mono tracking-wider text-sm uppercase transition-colors duration-200 disabled:cursor-not-allowed border-2 border-[#EC7A5B] hover:border-[#2F2C2C]"
+                  className="w-80 md:w-auto px-8 py-4 bg-[#EC7A5B] hover:opacity-80 disabled:bg-gray-400 text-white font-mono tracking-wider text-sm uppercase transition-opacity duration-200 disabled:cursor-not-allowed rounded-full"
                 >
-                  {isLoading ? 'JOINING...' : 'SUBMIT'}
+                  {isLoading ? 'JOINING...' : 'SUBSCRIBE'}
                 </button>
               </div>
             </form>
-            
-            {/* Privacy Note - Minimal */}
-            <div className="mt-12 text-xs text-[#2F2C2C]/60 uppercase tracking-widest font-sans">
-              <p>
-                WE RESPECT YOUR PRIVACY. UNSUBSCRIBE AT ANY TIME.
-              </p>
+            <div className={`mt-6 text-xs uppercase tracking-widest font-sans text-center ${mutedColor}`}>
+              <p>WE RESPECT YOUR PRIVACY. UNSUBSCRIBE AT ANY TIME.</p>
             </div>
           </div>
         )}

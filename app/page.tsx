@@ -1,7 +1,5 @@
-import Hero from "@/components/Hero";
-import PostHero from "@/components/PostHero";
-import PhotoGrid from "@/components/PhotoGrid";
-import EmailSignup from "@/components/EmailSignup";
+import HeroCarousel from "@/components/HeroCarousel";
+import EpisodeList from "@/components/EpisodeList";
 import { getAllPosts } from "@/lib/posts";
 
 const placeholderImages = [
@@ -17,40 +15,18 @@ const placeholderImages = [
 ];
 
 export default function Home() {
-  const allPosts =  getAllPosts(); 
+  const allPosts = getAllPosts();
 
   return (
-    <div className="font-[family-name:var(--font-geist-sans)]">
-      <main>
-        <Hero />
-        <div id="mission" className="relative flex flex-col w-full">
-          <div className="flex flex-col mx-auto w-full max-w-7xl p-3 md:p-6">
-            <div className="py-36 md:py-48">
-              <EmailSignup />
-            </div>
-          </div>
-          {/* Image Background */}
-          <div className="absolute inset-0 -z-10 py-12">
-            <div className="flex flex-row w-full h-full justify-end">
-              <div className="relative h-full w-full flex max-w-2xl md:max-w-4xl -mr-12 overflow-hidden">
-                <PhotoGrid images={placeholderImages} />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#FFFBF7] to-[#fffbf700]"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div>
+      <HeroCarousel latestEpisode={allPosts[0]} photoGridImages={placeholderImages} />
 
-        {/* Podcast List */}
-        <div id="episodes" className="relative flex flex-col w-full">
-          <div className="flex flex-col mx-auto w-full max-w-7xl p-3 md:p-6">
-            <div className="relative flex flex-col w-full space-y-12 mb-24">
-              {allPosts.map((post, index) => (
-                <PostHero key={index} episode={post} />
-              ))}
-            </div>
-          </div>
+      {/* Podcast List */}
+      <div id="episodes" className="relative flex flex-col w-full">
+        <div className="flex flex-col mx-auto w-full max-w-7xl px-3 md:px-6 pt-12 pb-6">
+          <EpisodeList posts={allPosts} />
         </div>
-      </main>
+      </div>
     </div>
   );
 }

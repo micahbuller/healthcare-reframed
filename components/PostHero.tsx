@@ -28,22 +28,36 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
 
   useEffect(() => {
     const element = ref.current;
-    gsap.fromTo(
-      element,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.inOut",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 100%", // Animation starts when the bottom of the element is 90% visible
-          end: "top 20%", // Animation ends when the top of the element is 20% visible
-          toggleActions: "play none none reset", // Replay animation every time the element enters the viewport
-        },
-      }
-    );
+    if (!element) return;
+
+    const rect = element.getBoundingClientRect();
+    const alreadyInView = rect.top < window.innerHeight;
+
+    if (alreadyInView) {
+      // Element is visible on load — animate in immediately, no scroll required
+      gsap.fromTo(
+        element,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }
+      );
+    } else {
+      // Element is below the fold — animate as it scrolls into view
+      gsap.fromTo(
+        element,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: element,
+            start: "top 90%",
+            once: true,
+          },
+        }
+      );
+    }
   }, []);
 
   return (
