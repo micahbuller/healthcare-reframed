@@ -73,17 +73,17 @@ const EpisodeCard: React.FC<{ episode: BlogPost; index?: number }> = ({ episode,
     <Link href={`/transcripts/${slug}`} className="block group" aria-label={`View episode: ${title}`}>
       <div
         ref={ref}
-        className="flex flex-col md:flex-row gap-5 md:gap-8 p-5 md:p-6 rounded-3xl border border-[#2F2C2C]/10 hover:border-[#EC7A5B]/40 transition-all duration-300"
+        className="flex flex-col md:flex-row gap-5 md:gap-8 p-5 md:p-6 rounded-3xl border border-[#2F2C2C]/10 hover:border-[#EC7A5B]/40 transition-all duration-300 md:h-64 lg:h-72"
       >
         {/* Thumbnail */}
-        <div className="relative w-full md:w-72 lg:w-80 shrink-0 rounded-2xl overflow-hidden bg-[#2F2C2C]" style={{ aspectRatio: "16/9" }}>
+        <div className="relative w-full aspect-video md:w-auto md:h-full shrink-0 rounded-2xl overflow-hidden bg-[#2F2C2C]">
           {imageUrl && (
             <Image
               src={imageUrl}
               alt={`Thumbnail for ${title}`}
               fill
-              style={{ objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, 320px"
+              className="object-cover"
+              sizes="(max-width: 768px) calc(100vw - 2.5rem), 35vw"
             />
           )}
         </div>
@@ -119,7 +119,7 @@ const EpisodeCard: React.FC<{ episode: BlogPost; index?: number }> = ({ episode,
           )}
 
           {/* Description */}
-          <p className="font-sans text-sm md:text-base text-[#2F2C2C]/70 leading-relaxed line-clamp-3 mb-4">
+          <p className="font-sans text-sm text-[#2F2C2C]/70 leading-relaxed line-clamp-2 lg:line-clamp-3 mb-4">
             {description}
           </p>
 

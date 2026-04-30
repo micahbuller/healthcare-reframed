@@ -53,7 +53,7 @@ export default function RootLayout({
   return (
     <html className={`${edu.variable} ${univers.variable} antialiased`} lang="en">
       <body className="flex flex-col">
-        <Analytics />
+        {process.env.NODE_ENV === 'production' && <Analytics />}
         <HeaderMenu />
         <main>{children}</main>
         <footer className="bg-[#2F2C2C] text-[#FFFBF7]">

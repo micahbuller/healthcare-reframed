@@ -41,28 +41,12 @@ export function getPostBySlug(slug: string): BlogPost {
 export function getAllPosts() {
   const slugs = getPostSlugs();
   const posts = slugs.map((slug) => getPostBySlug(slug));
-  
-  // Debug: Log all posts with their dates
-  console.log('All posts with dates:');
-  posts.forEach(post => {
-    console.log(`${post.slug}: ${post.date} (${post.date instanceof Date ? 'Valid Date' : 'Invalid Date'})`);
-  });
-  
-  const sortedPosts = posts.sort((a, b) => {
+
+  return posts.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
-    
-    // Handle invalid dates
     if (isNaN(dateA.getTime())) return 1;
     if (isNaN(dateB.getTime())) return -1;
-    
-    return dateB.getTime() - dateA.getTime(); // Newest first
+    return dateB.getTime() - dateA.getTime();
   });
-  
-  console.log('Sorted order:');
-  sortedPosts.forEach((post, index) => {
-    console.log(`${index + 1}. ${post.slug}: ${post.date}`);
-  });
-  
-  return sortedPosts;
 }

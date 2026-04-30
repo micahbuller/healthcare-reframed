@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Prevent Turbopack from bundling native Node addons — lightningcss ships a
+  // platform-specific .node binary that must be loaded by Node's own require,
+  // not inlined by the bundler.
+  serverExternalPackages: ["lightningcss"],
   images: {
     remotePatterns: [
       {

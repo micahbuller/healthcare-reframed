@@ -17,6 +17,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeCard, setActiveCard] = useState(0);
   const [svh, setSvh] = useState<number | null>(null);
+  const [carouselH, setCarouselH] = useState<number | null>(null);
   // Stays false during SSR and until after the mount jump — hides the carousel to
   // prevent the SSR scroll-position-0 (clone-last card) from flashing before hydration.
   const [ready, setReady] = useState(false);
@@ -33,9 +34,20 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
   useEffect(() => {
     const update = () => {
       const h = window.innerHeight;
-      // On desktop (≥768px) leave ~12% of the viewport visible below the carousel
-      // so users can see there is content to scroll down to.
-      setSvh(window.innerWidth >= 768 ? Math.round(h * 0.88) : h);
+      const w = window.innerWidth;
+      if (w >= 768) {
+        // On desktop leave ~12% of the viewport visible below the carousel
+        // so users can see there is content to scroll down to.
+        const s = Math.round(h * 0.88);
+        setSvh(s);
+        setCarouselH(Math.min(s, 620));
+      } else {
+        setSvh(h);
+        // Reserve 112px for top header gap, 52px for bottom nav, 24px bottom pad.
+        // This ensures the card + nav always fit within the mobile viewport with
+        // comfortable breathing room top and bottom.
+        setCarouselH(Math.max(h - 188, 280));
+      }
     };
     update();
     window.addEventListener("resize", update);
@@ -327,8 +339,8 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
     <div key={key} className={`${cardBase} bg-[#2F2C2C]`}>
       {/* Mobile — thumbnail with margin on all sides, 16:9, rounded */}
       <div className="flex flex-col h-full md:hidden overflow-y-auto p-4 gap-4">
-        <div className="relative w-full rounded-2xl overflow-hidden shrink-0" style={{ aspectRatio: "16/9" }}>
-          <Image src={imageUrl} alt={title} fill priority sizes="100vw" style={{ objectFit: "cover" }} />
+        <div className="relative w-full aspect-video rounded-2xl overflow-hidden shrink-0">
+          <Image src={imageUrl} alt={title} fill priority sizes="(max-width: 768px) calc(100vw - 2rem), 50vw" style={{ objectFit: "cover" }} />
         </div>
         <div className="flex flex-col flex-1 min-h-0 pb-4">
           <span className="font-mono text-xs uppercase text-[#FFFBF7]/60 tracking-widest mb-2">Latest Episode</span>
@@ -437,7 +449,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
 
   return (
     <div
-      className="relative w-full bg-[#FFFBF7] flex flex-col items-center justify-center"
+      className="relative w-full bg-[#FFFBF7] flex flex-col items-center pt-28 pb-6 md:pt-0 md:pb-0 md:justify-center"
       style={{ height: svh ? `${svh}px` : "100vh" }}
       onMouseEnter={pauseAutoplay}
       onMouseLeave={resumeAutoplay}
@@ -445,7 +457,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       {/* ── Carousel viewport ── hidden until mount jump fires (prevents SSR clone-last flash) */}
       <div
         className="relative w-full overflow-hidden flex-none transition-opacity duration-300"
-        style={{ height: "min(100%, 620px)", opacity: ready ? 1 : 0 }}
+        style={{ height: carouselH ? `${carouselH}px` : "min(100%, 620px)", opacity: ready ? 1 : 0 }}
       >
         <div
           ref={trackRef}

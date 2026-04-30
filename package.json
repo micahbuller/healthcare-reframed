@@ -15,6 +15,7 @@
     "autoprefixer": "^10.5.0",
     "gray-matter": "^4.0.3",
     "gsap": "^3.15.0",
+    "lightningcss": "^1.32.0",
     "next": "^16.2.4",
     "next-mdx-remote": "^6.0.0",
     "nice-color-palettes": "^4.0.0",
