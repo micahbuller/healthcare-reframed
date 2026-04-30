@@ -36,17 +36,17 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       const h = window.innerHeight;
       const w = window.innerWidth;
       if (w >= 768) {
-        // On desktop leave ~12% of the viewport visible below the carousel
-        // so users can see there is content to scroll down to.
+        // Desktop: compute 88% of viewport with 620px cap via JS.
         const s = Math.round(h * 0.88);
         setSvh(s);
         setCarouselH(Math.min(s, 620));
       } else {
-        setSvh(h);
-        // Reserve 112px for top header gap, 52px for bottom nav, 24px bottom pad.
-        // This ensures the card + nav always fit within the mobile viewport with
-        // comfortable breathing room top and bottom.
-        setCarouselH(Math.max(h - 188, 280));
+        // Mobile: reset to null so CSS svh units take over.
+        // svh (small viewport height) is locked to the viewport size when the
+        // browser chrome is fully visible — it never changes as the user scrolls
+        // and the address/tab bar hides, so the card won't jump or glitch.
+        setSvh(null);
+        setCarouselH(null);
       }
     };
     update();
@@ -450,14 +450,14 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
   return (
     <div
       className="relative w-full bg-[#FFFBF7] flex flex-col items-center pt-28 pb-6 md:pt-0 md:pb-0 md:justify-center"
-      style={{ height: svh ? `${svh}px` : "100vh" }}
+      style={{ height: svh ? `${svh}px` : "100svh" }}
       onMouseEnter={pauseAutoplay}
       onMouseLeave={resumeAutoplay}
     >
       {/* ── Carousel viewport ── hidden until mount jump fires (prevents SSR clone-last flash) */}
       <div
         className="relative w-full overflow-hidden flex-none transition-opacity duration-300"
-        style={{ height: carouselH ? `${carouselH}px` : "min(100%, 620px)", opacity: ready ? 1 : 0 }}
+        style={{ height: carouselH ? `${carouselH}px` : "calc(100svh - 188px)", opacity: ready ? 1 : 0 }}
       >
         <div
           ref={trackRef}
