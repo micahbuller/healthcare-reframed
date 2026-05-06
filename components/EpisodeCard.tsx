@@ -42,7 +42,7 @@ const EpisodeCard: React.FC<{ episode: BlogPost; index?: number; variant?: "list
 
   if (isGrid) {
     return (
-      <Link href={`/transcripts/${slug}`} className="block group" aria-label={`View episode: ${title}`}>
+      <Link href={`/episode/${slug}`} className="block group" aria-label={`View episode: ${title}`}>
         <div className="flex flex-col rounded-2xl border border-[#2F2C2C]/10 hover:border-[#EC7A5B]/40 transition-all duration-300 overflow-hidden">
           {/* Thumbnail */}
           <div className="relative w-full aspect-video shrink-0 bg-[#2F2C2C]">
@@ -131,7 +131,7 @@ const EpisodeCard: React.FC<{ episode: BlogPost; index?: number; variant?: "list
           )}
 
           {/* Title */}
-          <h3 className="font-mono uppercase text-[#2F2C2C] text-lg md:text-xl lg:text-2xl leading-tight mb-2 group-hover:text-[#EC7A5B] transition-colors duration-200">
+          <h3 className="font-mono uppercase text-[#2F2C2C] text-lg md:text-xl lg:text-2xl leading-tight mb-2 group-hover:text-[#EC7A5B] transition-colors duration-200 line-clamp-2">
             {title}
           </h3>
 
@@ -145,7 +145,7 @@ const EpisodeCard: React.FC<{ episode: BlogPost; index?: number; variant?: "list
           )}
 
           {/* Description */}
-          <p className="font-sans text-sm text-[#2F2C2C]/70 leading-relaxed line-clamp-2 lg:line-clamp-3 mb-4">
+          <p className="font-sans text-sm text-[#2F2C2C]/70 leading-relaxed line-clamp-3 mb-4">
             {description}
           </p>
 

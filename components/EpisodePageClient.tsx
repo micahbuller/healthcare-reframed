@@ -280,8 +280,10 @@ const TimestampsTab: React.FC<{ post: BlogPost; playerRef: React.MutableRefObjec
 
 // -- Transcript tab --
 
-const TranscriptTab: React.FC<{ transcript: React.ReactNode }> = ({ transcript }) => (
-  <>{transcript}</>
+const TranscriptTab: React.FC<{ transcript: React.ReactNode; hasTranscript: boolean }> = ({ transcript, hasTranscript }) => (
+  hasTranscript
+    ? <>{transcript}</>
+    : <p className="font-sans text-base text-[#2F2C2C]/60">No transcript available for this episode.</p>
 );
 
 // -- Main client component --
@@ -292,7 +294,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "transcript", label: "Transcript" },
 ];
 
-export default function EpisodePageClient({ post, transcript }: { post: BlogPost; transcript: React.ReactNode }) {
+export default function EpisodePageClient({ post, transcript, hasTranscript = true }: { post: BlogPost; transcript: React.ReactNode; hasTranscript?: boolean }) {
   const [activeTab, setActiveTab] = useState<Tab>("show-notes");
   const playerRef = useRef<any>(null);
 
@@ -422,7 +424,7 @@ export default function EpisodePageClient({ post, transcript }: { post: BlogPost
       <div className="max-w-5xl mx-auto px-6 md:px-12 py-12">
         {activeTab === "show-notes" && <ShowNotesTab post={post} />}
         {activeTab === "timestamps" && <TimestampsTab post={post} playerRef={playerRef} />}
-        {activeTab === "transcript" && <TranscriptTab transcript={transcript} />}
+        {activeTab === "transcript" && <TranscriptTab transcript={transcript} hasTranscript={hasTranscript} />}
       </div>
 
       {/* Footer nav */}

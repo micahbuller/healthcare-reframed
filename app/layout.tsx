@@ -6,6 +6,7 @@ import Link from "next/link";
 import HeaderMenu from "@/components/HeaderMenu";
 import EmailSignup from "@/components/EmailSignup";
 import TrackedExternalLink from "@/components/TrackedExternalLink";
+import DevModeToggle from "@/components/DevModeToggle";
 
 const edu = localFont({
   src: "../font/EduDiatypeMono-Regular.otf",
@@ -142,6 +143,7 @@ export default function RootLayout({
           </div>
 
         </footer>
+        {process.env.NODE_ENV === "development" && <DevModeToggle />}
       </body>
     </html>
   );

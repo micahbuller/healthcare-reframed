@@ -5,8 +5,19 @@ import { BlogPost } from "@/types/types";
 
 const postsDirectory = path.join(process.cwd(), "app/content/posts");
 
+function isPostLive(post: BlogPost): boolean {
+  return post.date <= new Date();
+}
+
 export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory).map((file) => file.replace(/\.mdx$/, ""));
+  return fs
+    .readdirSync(postsDirectory)
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => file.replace(/\.mdx$/, ""))
+    .filter((slug) => {
+      const post = getPostBySlug(slug);
+      return isPostLive(post);
+    });
 }
 
 export function getPostBySlug(slug: string): BlogPost {
@@ -39,9 +50,15 @@ export function getPostBySlug(slug: string): BlogPost {
   };
 }
 
-export function getAllPosts() {
-  const slugs = getPostSlugs();
-  const posts = slugs.map((slug) => getPostBySlug(slug));
+export function getAllPosts(showAll = false) {
+  const slugs = fs
+    .readdirSync(postsDirectory)
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => file.replace(/\.mdx$/, ""));
+
+  const posts = slugs
+    .map((slug) => getPostBySlug(slug))
+    .filter((post) => showAll || isPostLive(post));
 
   return posts.sort((a, b) => {
     const dateA = new Date(a.date);

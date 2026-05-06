@@ -83,7 +83,7 @@ const PostHero: React.FC<{ episode: BlogPost }> = ({ episode }) => {
           <PostHeroDescription description={description} />
           <div className="flex flex-col md:flex-row w-full space-y-6 md:items-center md:justify-between">
             <div className="flex flex-row space-x-4">
-              <Link href={"/transcripts/" + slug} className="text-md font-mono uppercase text-[#2F2C2C] hover:text-[#EC7A5B] transition-colors duration-300">
+              <Link href={"/episode/" + slug} className="text-md font-mono uppercase text-[#2F2C2C] hover:text-[#EC7A5B] transition-colors duration-300">
                 <p className="text-md font-mono uppercase text-[#2F2C2C]">Read Transcript</p>
               </Link>
             </div>

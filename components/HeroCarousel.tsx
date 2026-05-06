@@ -340,7 +340,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
               className="font-mono uppercase text-sm px-5 py-2.5 bg-[#FFFBF7] text-[#2F2C2C] hover:opacity-80 transition-opacity rounded-full">
               Watch on YouTube
             </TrackedExternalLink>
-            <Link href={`/transcripts/${slug}`}
+            <Link href={`/episode/${slug}`}
               className="font-mono uppercase text-sm px-5 py-2.5 border border-[#FFFBF7]/40 text-[#FFFBF7] hover:border-[#FFFBF7] transition-colors rounded-full">
               Read Transcript
             </Link>
@@ -367,7 +367,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
               className="font-mono uppercase text-sm px-6 py-3 bg-[#FFFBF7] text-[#2F2C2C] hover:opacity-80 transition-opacity rounded-full">
               Watch on YouTube
             </TrackedExternalLink>
-            <Link href={`/transcripts/${slug}`}
+            <Link href={`/episode/${slug}`}
               className="font-mono uppercase text-sm px-6 py-3 border border-[#FFFBF7]/40 text-[#FFFBF7] hover:border-[#FFFBF7] transition-colors rounded-full">
               Read Transcript
             </Link>
