@@ -50,14 +50,14 @@ const team = [
 	{
 		name: "Lindsay Hunt",
 		role: "Co-Producer",
-		linkedin: "https://www.linkedin.com/in/lindsay-hunt-healthcare",
+		linkedin: "https://www.linkedin.com/in/lindsayshunt/",
 		desc: `Lindsay is a healthcare leader with over 20 years of experience in quality improvement, change management, and system transformation. She has designed and led major initiatives at the Institute for Healthcare Improvement (IHI) and the Harvard Medical School Center for Primary Care. Most recently, she has partnered with rural health systems to develop collaborative strategies that strengthen clinician and staff recruitment and retention.`,
 		img: "https://res.cloudinary.com/mindflip/image/upload/v1752527102/healthcare%20reframed/Website/Bios/Lindsay_awueiu.jpg",
 	},
 	{
 		name: "Todd Carpenter",
 		role: "Co-Producer",
-		linkedin: "https://www.linkedin.com/in/todd-carpenter-md",
+		linkedin: "https://www.linkedin.com/in/todd-carpenter-aa875534/",
 		desc: `Todd is a pediatric intensive care physician, with almost 30 years of experience in clinical medicine and research, and over 100 academic publications. His deep experience as a leader in the high-tech, high-stakes world of intensive care medicine, coupled with personal experiences as a caregiver and patient, fuel his energy for making our healthcare system smarter, safer, and more patient-centered.`,
 		img: "https://res.cloudinary.com/mindflip/image/upload/v1752527139/healthcare%20reframed/Website/Bios/Todd-2_ywmnrq.jpg",
 	},
