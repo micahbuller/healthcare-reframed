@@ -55,7 +55,7 @@ function HeaderMenu() {
         </div>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center space-x-6">
+        <div className="hidden xl:flex items-center space-x-6">
           <Link href="/episodes">
             <div className="group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-full">
               <span className="w-2 h-2 border border-white group-hover:border-[#2F2C2C] rounded-full transition-all duration-300"></span>
@@ -89,7 +89,7 @@ function HeaderMenu() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-full"
+          className="xl:hidden group bg-[#2F2C2C] text-white bg-opacity-25 space-x-2 flex flex-row items-center hover:bg-opacity-25 hover:bg-white hover:text-[#2F2C2C] transition-all duration-300 px-8 py-[2px] rounded-full"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
         >
@@ -100,7 +100,7 @@ function HeaderMenu() {
       {/* Mobile drawer — display controlled entirely by GSAP, not React class toggling */}
       <div
         ref={menuRef}
-        className="fixed md:hidden top-0 left-0 w-full h-full z-40 bg-[#2F2C2C] bg-opacity-25 backdrop-blur-xl py-4 px-6"
+        className="fixed xl:hidden top-0 left-0 w-full h-full z-40 bg-[#2F2C2C] bg-opacity-25 backdrop-blur-xl py-4 px-6"
         style={{ display: "none" }}
       >
         <div ref={menuItemsRef} className="flex flex-col justify-start space-y-6 mt-24">
