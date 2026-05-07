@@ -4,6 +4,9 @@ import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { getDevMode } from "@/lib/dev-mode";
 import Link from "next/link";
 
+// Revalidate every 5 minutes so scheduled posts go live without a redeploy
+export const revalidate = 300;
+
 const placeholderImages = [
   "https://res.cloudinary.com/mindflip/image/upload/v1751658633/healthcare%20reframed/PhotoGrid/BeckyPayneAtHealthcareReframedTable.jpg",
   "https://res.cloudinary.com/mindflip/image/upload/v1751658632/healthcare%20reframed/PhotoGrid/Becky_Payne.jpg",

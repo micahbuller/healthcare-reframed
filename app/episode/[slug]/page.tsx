@@ -5,6 +5,11 @@ import EpisodePageClient from "@/components/EpisodePageClient";
 import { notFound } from "next/navigation";
 import { getDevMode } from "@/lib/dev-mode";
 
+// Revalidate every 5 minutes so scheduled posts go live without a redeploy
+export const revalidate = 300;
+// Allow on-demand rendering for slugs not pre-generated at build time
+export const dynamicParams = true;
+
 export function generateStaticParams() {
   const slugs = getPostSlugs();
   return slugs.map((slug: string) => ({ slug }));
