@@ -19,6 +19,14 @@ const SpotifyIcon = () => (
   </svg>
 );
 
+const SubstackIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="3" y="4" width="18" height="2.5" rx="1" fill="currentColor" />
+    <rect x="3" y="9.75" width="18" height="2.5" rx="1" fill="currentColor" />
+    <path d="M3 15.5h18v5.25L12 18.5 3 20.75V15.5z" fill="currentColor" />
+  </svg>
+);
+
 const AppleIcon = () => (
   <svg width="18" height="18" viewBox="0 0 41 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path fillRule="evenodd" clipRule="evenodd" d="M40.93 11.57c0-.41 0-.82-.01-1.23-.02-.9-.08-1.8-.24-2.69-.16-.9-.43-1.74-.84-2.56-.41-.8-.95-1.54-1.58-2.18-.64-.64-1.38-1.17-2.18-1.58-.82-.42-1.66-.69-2.55-.85-.89-.16-1.79-.21-2.69-.24-.41-.01-.83-.01-1.23-.01-.49 0-.98 0-1.47 0H12.8c-.49 0-.98 0-1.47 0-.41 0-.82 0-1.23.01-.9.02-1.8.08-2.69.24-.9.16-1.74.43-2.55.85-.81.41-1.54.95-2.18 1.58-.64.64-1.17 1.38-1.58 2.18-.42.82-.69 1.66-.85 2.56-.16.89-.21 1.8-.24 2.69-.01.41-.01.82-.01 1.23 0 .49 0 .98 0 1.47v15.32c0 .49 0 .98 0 1.47 0 .41 0 .82.01 1.23.02.9.08 1.8.24 2.69.16.9.43 1.74.84 2.56.41.8.95 1.54 1.58 2.18.64.64 1.38 1.17 2.18 1.58.82.42 1.66.69 2.55.85.89.16 1.79.21 2.69.24.41.01.83.01 1.23.01.49.01.98 0 1.47 0h15.32c.49 0 .98 0 1.47 0 .41 0 .82-.01 1.23-.01.9-.02 1.8-.08 2.69-.24.9-.16 1.74-.43 2.55-.85.8-.41 1.54-.95 2.18-1.58.64-.64 1.17-1.38 1.58-2.18.42-.82.69-1.66.85-2.56.16-.89.21-1.8.24-2.69.01-.41.01-.82.01-1.23.01-.49 0-.98 0-1.47V13.04c.01-.49.01-.98.01-1.47zM29.96 26.87c0 .52-.01.99-.11 1.51-.11.51-.3.98-.59 1.42-.29.43-.67.79-1.12 1.05-.45.27-.92.42-1.42.52-.94.19-1.58.23-2.19.11-.58-.12-1.08-.39-1.47-.75-.59-.54-.96-1.27-1.04-2.03-.09-.89.23-1.84.89-2.54.34-.35.79-.63 1.36-.85.59-.23 1.24-.37 2.25-.57.27-.05.53-.11.8-.16.35-.07.65-.16.89-.46.25-.3.25-.66.25-1.01V14.06c0-.69-.31-.88-.97-.75l-11.23 2.28c-.57.14-.76.32-.76 1.04v13.2c0 .52-.03.99-.13 1.51-.11.51-.3.98-.59 1.42-.29.43-.67.79-1.12 1.05-.45.27-.92.42-1.42.52-.94.19-1.58.23-2.19.11-.58-.12-1.08-.39-1.47-.75-.59-.54-.96-1.27-1.04-2.03-.09-.89.23-1.84.89-2.54.34-.35.79-.63 1.36-.85.59-.23 1.24-.37 2.25-.57.27-.05.53-.11.8-.16.35-.07.65-.16.89-.46.24-.3.27-.65.27-.99V10.68c0-.2.02-.34.03-.41.05-.32.18-.6.42-.79.19-.16.44-.27.76-.34l12.18-2.47c.11-.02.97-.15 1.07-.16.66-.06 1.03.37 1.03 1.07l-.01 19.31z" fill="currentColor" />
@@ -105,6 +113,43 @@ const YouTubePlayerEmbed: React.FC<{
     </div>
   );
 };
+
+// -- Substack article preview card --
+
+const SubstackCard: React.FC<{
+  url: string;
+  title: string;
+  description: string;
+  episodeTitle: string;
+}> = ({ url, title, description, episodeTitle }) => (
+  <TrackedExternalLink
+    href={url}
+    episodeTitle={episodeTitle}
+    location="substack-card"
+    className="flex items-start gap-5 w-full rounded-2xl bg-[#FF6719] p-6 md:p-8 hover:opacity-95 active:opacity-90 transition-opacity group no-underline"
+  >
+    {/* Substack "S" badge */}
+    <div className="shrink-0 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mt-0.5">
+      <SubstackIcon />
+    </div>
+    <div className="flex-1 min-w-0">
+      <p className="font-mono text-xs uppercase tracking-widest text-white/60 mb-2">Read on Substack</p>
+      {title && (
+        <h3 className="font-mono uppercase text-white text-lg md:text-xl leading-tight mb-2">
+          {title}
+        </h3>
+      )}
+      {description && (
+        <p className="font-sans text-sm md:text-base text-white/80 leading-relaxed line-clamp-3">
+          {description}
+        </p>
+      )}
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-white/60 shrink-0 mt-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+    </svg>
+  </TrackedExternalLink>
+);
 
 // -- Tab types --
 
@@ -294,7 +339,14 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "transcript", label: "Transcript" },
 ];
 
-export default function EpisodePageClient({ post, transcript, hasTranscript = true }: { post: BlogPost; transcript: React.ReactNode; hasTranscript?: boolean }) {
+export default function EpisodePageClient({
+  post, transcript, hasTranscript = true, substackPreview,
+}: {
+  post: BlogPost;
+  transcript: React.ReactNode;
+  hasTranscript?: boolean;
+  substackPreview?: { title: string; description: string } | null;
+}) {
   const [activeTab, setActiveTab] = useState<Tab>("show-notes");
   const playerRef = useRef<any>(null);
 
@@ -378,15 +430,26 @@ export default function EpisodePageClient({ post, transcript, hasTranscript = tr
               Apple Podcasts
             </TrackedExternalLink>
           )}
+          {post.substackUrl && (
+            <TrackedExternalLink
+              href={post.substackUrl}
+              episodeTitle={title}
+              location="episode-platform-links"
+              className="inline-flex items-center gap-2.5 font-mono uppercase text-sm px-5 py-3 bg-[#FF6719] text-white rounded-full hover:opacity-90 transition-opacity duration-200"
+            >
+              <SubstackIcon />
+              Read Article
+            </TrackedExternalLink>
+          )}
         </div>
 
         {/* YouTube embed — timestamps seek this player */}
         {videoId ? (
-          <div className="mb-10">
+          <div className="mb-6">
             <YouTubePlayerEmbed videoId={videoId} playerRef={playerRef} />
           </div>
         ) : imageUrl ? (
-          <div className="relative w-full rounded-3xl overflow-hidden bg-[#2F2C2C] mb-10" style={{ aspectRatio: "16/9" }}>
+          <div className="relative w-full rounded-3xl overflow-hidden bg-[#2F2C2C] mb-6" style={{ aspectRatio: "16/9" }}>
             <Image
               src={imageUrl}
               alt={`Thumbnail for ${title}`}
@@ -397,6 +460,18 @@ export default function EpisodePageClient({ post, transcript, hasTranscript = tr
             />
           </div>
         ) : null}
+
+        {/* Substack article card — shown directly below the video when available */}
+        {post.substackUrl && substackPreview && (
+          <div className="mb-10">
+            <SubstackCard
+              url={post.substackUrl}
+              title={substackPreview.title}
+              description={substackPreview.description}
+              episodeTitle={title}
+            />
+          </div>
+        )}
       </div>
 
       {/* Sticky tab nav */}

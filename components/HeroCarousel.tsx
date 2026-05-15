@@ -31,6 +31,11 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
   // Tracks current DOM index synchronously — never stale, unlike React state
   const currentDOMIndex = useRef(1);
 
+  const getCenteredScrollLeft = useCallback((track: HTMLDivElement, card: HTMLElement) => {
+    const centeredLeft = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
+    return Math.max(0, centeredLeft);
+  }, []);
+
   useEffect(() => {
     const update = () => {
       const h = window.innerHeight;
@@ -75,12 +80,12 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
     if (!cards[domIndex]) return;
     isJumping.current = true;
     currentDOMIndex.current = domIndex;
-    track.scrollLeft = cards[domIndex].offsetLeft;
+    track.scrollLeft = getCenteredScrollLeft(track, cards[domIndex]);
     // Double-rAF: outlasts browser scroll restoration which fires after first rAF
     requestAnimationFrame(() => {
       requestAnimationFrame(() => { isJumping.current = false; });
     });
-  }, []);
+  }, [getCenteredScrollLeft]);
 
   // Smooth scroll to a DOM slot
   const scrollToDOM = useCallback((domIndex: number) => {
@@ -89,8 +94,8 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
     const cards = Array.from(track.children) as HTMLElement[];
     if (!cards[domIndex]) return;
     currentDOMIndex.current = domIndex;
-    track.scrollTo({ left: cards[domIndex].offsetLeft, behavior: "smooth" });
-  }, []);
+    track.scrollTo({ left: getCenteredScrollLeft(track, cards[domIndex]), behavior: "smooth" });
+  }, [getCenteredScrollLeft]);
 
   // useLayoutEffect: jump to real card 0 before first paint so the SSR clone-last
   // position is never visible. Setting ready=true in the same effect causes a
@@ -110,7 +115,9 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       const cards = Array.from(track.children) as HTMLElement[];
       let closest = 0, minDist = Infinity;
       cards.forEach((card, i) => {
-        const dist = Math.abs(card.offsetLeft - track.scrollLeft);
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const viewCenter = track.scrollLeft + track.clientWidth / 2;
+        const dist = Math.abs(cardCenter - viewCenter);
         if (dist < minDist) { minDist = dist; closest = i; }
       });
       currentDOMIndex.current = closest;
@@ -175,20 +182,22 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       // Guard isJumping BEFORE the instant scrollLeft change so the scrollend
       // that Chrome fires immediately does not trigger handleSettle mid-wrap.
       isJumping.current = true;
-      track.scrollLeft = cards[0].offsetLeft;
+      track.scrollLeft = getCenteredScrollLeft(track, cards[0]);
       currentDOMIndex.current = 1;
       setActiveCard(0);
       requestAnimationFrame(() => requestAnimationFrame(() => {
         isJumping.current = false;
-        trackRef.current?.scrollTo({ left: cards[1].offsetLeft, behavior: "smooth" });
+        const nextTrack = trackRef.current;
+        if (!nextTrack) return;
+        nextTrack.scrollTo({ left: getCenteredScrollLeft(nextTrack, cards[1]), behavior: "smooth" });
       }));
     } else {
       const next = Math.min(cur + 1, TOTAL_CARDS + 1);
       currentDOMIndex.current = next;
-      track.scrollTo({ left: cards[next].offsetLeft, behavior: "smooth" });
+      track.scrollTo({ left: getCenteredScrollLeft(track, cards[next]), behavior: "smooth" });
       setActiveCard(next - 1);
     }
-  }, []);
+  }, [getCenteredScrollLeft]);
 
   const goPrev = useCallback(() => {
     const track = trackRef.current;
@@ -199,20 +208,22 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       // Guard isJumping BEFORE the instant scrollLeft change so the scrollend
       // that Chrome fires immediately does not trigger handleSettle mid-wrap.
       isJumping.current = true;
-      track.scrollLeft = cards[TOTAL_CARDS + 1].offsetLeft;
+      track.scrollLeft = getCenteredScrollLeft(track, cards[TOTAL_CARDS + 1]);
       currentDOMIndex.current = TOTAL_CARDS;
       setActiveCard(TOTAL_CARDS - 1);
       requestAnimationFrame(() => requestAnimationFrame(() => {
         isJumping.current = false;
-        trackRef.current?.scrollTo({ left: cards[TOTAL_CARDS].offsetLeft, behavior: "smooth" });
+        const nextTrack = trackRef.current;
+        if (!nextTrack) return;
+        nextTrack.scrollTo({ left: getCenteredScrollLeft(nextTrack, cards[TOTAL_CARDS]), behavior: "smooth" });
       }));
     } else {
       const prev = Math.max(cur - 1, 0);
       currentDOMIndex.current = prev;
-      track.scrollTo({ left: cards[prev].offsetLeft, behavior: "smooth" });
+      track.scrollTo({ left: getCenteredScrollLeft(track, cards[prev]), behavior: "smooth" });
       setActiveCard(prev - 1);
     }
-  }, []);
+  }, [getCenteredScrollLeft]);
 
 
   // ── Cross-browser touch handling ────────────────────────────────────────────
@@ -304,14 +315,20 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
 
   const { title, description, imageUrl, youtubeLink, spotifyLink, appleMusicLink, slug } = latestEpisode;
 
-  // ── Shared card class ───────────────────────────────────────────────────────
-  const cardBase = "snap-start shrink-0 w-full h-full rounded-3xl overflow-hidden";
+  // ── Shared card classes ──────────────────────────────────────────────────────
+  // Below xl (1280px) each slide is calc(100% - 2rem) so that exactly 0.5rem of
+  // the neighbouring card face is visible on each side (1rem wrapper peek minus
+  // the 0.5rem px-2 inset = 0.5rem of coloured card face). Above xl the slide
+  // caps at max-w-7xl and the growing track provides natural side peeking.
+  const snapItem = "snap-start md:snap-center shrink-0 w-[calc(100%-2rem)] xl:w-full max-w-7xl h-full px-2";
+  const cardInner = "w-full h-full rounded-3xl overflow-hidden";
 
   // ── Card JSX (reused for real cards + clones) ───────────────────────────────
   const cardMission = (key: string, withScene = true) => (
-    <div key={key} className={`${cardBase} relative bg-[#EC7A5B]`}>
-      {withScene && <ThreeScene className="absolute inset-0 overflow-hidden rounded-3xl" />}
-      <div className="absolute inset-0 flex flex-col justify-center items-center px-8 text-[#2F2C2C] will-change-transform pointer-events-none">
+    <div key={key} className={snapItem}>
+      <div className={`${cardInner} relative bg-[#EC7A5B]`}>
+        {withScene && <ThreeScene className="absolute inset-0 overflow-hidden rounded-3xl" />}
+        <div className="absolute inset-0 flex flex-col justify-center items-center px-8 text-[#2F2C2C] will-change-transform pointer-events-none">
         <p className="font-sans uppercase text-xs tracking-widest mb-3 md:mb-6">HEALTHCARE REFRAMED</p>
         <h1 className="uppercase font-mono max-w-xl md:max-w-2xl text-xl sm:text-3xl md:text-4xl text-center leading-tight mb-3 md:mb-6">
           Rethinking the System,<br />One Conversation at a Time
@@ -320,12 +337,14 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
           A nonprofit podcast amplifying voices of change to build a stronger,
           more humane healthcare system.
         </p>
+        </div>
       </div>
     </div>
   );
 
   const cardEpisode = (key: string) => (
-    <div key={key} className={`${cardBase} bg-[#2F2C2C]`}>
+    <div key={key} className={snapItem}>
+      <div className={`${cardInner} bg-[#2F2C2C]`}>
       {/* Mobile — thumbnail with margin on all sides, 16:9, rounded */}
       <div className="flex flex-col h-full md:hidden overflow-y-auto p-4 gap-4">
         <div className="relative w-full aspect-video rounded-2xl overflow-hidden shrink-0">
@@ -388,11 +407,13 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
           </div>
         </div>
       </div>
+      </div>
     </div>
   );
 
   const cardSupport = (key: string) => (
-    <div key={key} className={`${cardBase} relative bg-[#2F2C2C] overflow-hidden`}>
+    <div key={key} className={snapItem}>
+      <div className={`${cardInner} relative bg-[#2F2C2C]`}>
       {/* Background photo collage — data-parallax receives transforms from updateParallax() */}
       {photoGridImages.length > 0 && (
         <div
@@ -433,6 +454,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
           </Link>
         </div>
       </div>
+      </div>
     </div>
   );
 
@@ -465,7 +487,7 @@ export default function HeroCarousel({ latestEpisode, photoGridImages = [] }: He
       </div>
 
       {/* ── Bottom nav: dots left, arrows right — matches Huberman layout ── */}
-      <div className="w-full flex items-center justify-between mt-4 px-4 md:px-[152px]">
+      <div className="w-full max-w-7xl mx-auto flex items-center justify-between mt-4 px-4 md:px-6">
         {/* Dots */}
         <div className="flex items-center space-x-2">
           {Array.from({ length: TOTAL_CARDS }).map((_, i) => (

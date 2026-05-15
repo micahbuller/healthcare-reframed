@@ -33,4 +33,5 @@ export interface BlogPost {
   timestamps: Timestamp[];
   peopleMentioned: GuestLink[];
   booksMentioned: GuestLink[];
+  substackUrl: string;
 }

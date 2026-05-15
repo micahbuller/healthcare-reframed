@@ -41,20 +41,13 @@ body {
   }
 }
 
-/* Carousel track — padding controls how much of adjacent cards peek in.
-   scroll-padding-left must equal padding-left so snap aligns correctly. */
+/* Carousel track — scroll positioning is JS-driven (getCenteredScrollLeft).
+   Track padding is 0 so offsetLeft math is clean. Visual gap between card
+   faces comes from the px-2 inset on each slide wrapper (8px + 8px = 1rem). */
 .carousel-track {
-  padding-left: 16px;
-  padding-right: 16px;
-  scroll-padding-left: 16px;
-  gap: 8px;
-}
-@media (min-width: 768px) {
-  .carousel-track {
-    padding-left: 152px;
-    padding-right: 152px;
-    scroll-padding-left: 152px;
-    gap: 20px;
-  }
+  padding-left: 0;
+  padding-right: 0;
+  scroll-padding-left: 0;
+  gap: 0;
 }
 

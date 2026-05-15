@@ -46,6 +46,7 @@ export function getPostBySlug(slug: string): BlogPost {
     timestamps: data.timestamps || [],
     peopleMentioned: data.peopleMentioned || [],
     booksMentioned: data.booksMentioned || [],
+    substackUrl: data.substackUrl || "",
     content,
   };
 }
