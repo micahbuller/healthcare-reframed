@@ -38,28 +38,28 @@ const team = [
 		role: "Host",
 		linkedin: "https://www.linkedin.com/in/judson-howe",
 		desc: `Judson is a healthcare executive with more than a decade of leadership experience as a hospital COO, CFO, and CEO, primarily in Northern California. He has seen first-hand the pressures facing our organizational leaders as they try to make high-quality healthcare a core value in our communities. Judson's passion for understanding the forces shaping our healthcare system and for seeking new insights into how to create change are the driving forces behind this podcast series.`,
-		img: "https://res.cloudinary.com/mindflip/image/upload/v1752162032/healthcare%20reframed/Website/Bios/IMG_0018-2_ymvcnv.jpg",
+		img: "https://res.cloudinary.com/mindflip/image/upload/v1779987736/healthcare%20reframed/Website/Bios/IMG_0018-2_ymvcnv.png",
 	},
 	{
 		name: "Micah Buller",
 		role: "Creative Director",
 		linkedin: "https://www.linkedin.com/in/micahbuller",
 		desc: `Micah is shaping every story, video, and teaser so our mission comes to life on screen. A seasoned software developer and multi-disciplinary storyteller, he built the very website you're exploring. Micah channels his "jack-of-all-trades" skill set into helping people everywhere live happier, healthier lives.`,
-		img: "https://res.cloudinary.com/mindflip/image/upload/v1752111630/healthcare%20reframed/Website/Bios/IMG_9760_iih4h2.jpg",
+		img: "https://res.cloudinary.com/mindflip/image/upload/v1779390406/healthcare%20reframed/Website/Bios/IMG_9760_iih4h2.png",
 	},
 	{
 		name: "Lindsay Hunt",
 		role: "Co-Producer",
 		linkedin: "https://www.linkedin.com/in/lindsayshunt/",
 		desc: `Lindsay is a healthcare leader with over 20 years of experience in quality improvement, change management, and system transformation. She has designed and led major initiatives at the Institute for Healthcare Improvement (IHI) and the Harvard Medical School Center for Primary Care. Most recently, she has partnered with rural health systems to develop collaborative strategies that strengthen clinician and staff recruitment and retention.`,
-		img: "https://res.cloudinary.com/mindflip/image/upload/v1752527102/healthcare%20reframed/Website/Bios/Lindsay_awueiu.jpg",
+		img: "https://res.cloudinary.com/mindflip/image/upload/v1779987625/healthcare%20reframed/Website/Bios/Lindsay_awueiu.png",
 	},
 	{
 		name: "Todd Carpenter",
 		role: "Co-Producer",
 		linkedin: "https://www.linkedin.com/in/todd-carpenter-aa875534/",
 		desc: `Todd is a pediatric intensive care physician, with almost 30 years of experience in clinical medicine and research, and over 100 academic publications. His deep experience as a leader in the high-tech, high-stakes world of intensive care medicine, coupled with personal experiences as a caregiver and patient, fuel his energy for making our healthcare system smarter, safer, and more patient-centered.`,
-		img: "https://res.cloudinary.com/mindflip/image/upload/v1752527139/healthcare%20reframed/Website/Bios/Todd-2_ywmnrq.jpg",
+		img: "https://res.cloudinary.com/mindflip/image/upload/v1779987610/healthcare%20reframed/Website/Bios/Todd-2_ywmnrq.png",
 	},
 ];
 
